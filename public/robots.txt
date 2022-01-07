@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://models.digitalax.xyz
+
+# Sitemaps
+Sitemap: https://models.digitalax.xyz/sitemap.xml

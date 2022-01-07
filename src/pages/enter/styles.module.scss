@@ -1,0 +1,34 @@
+.wrapper {
+  height: fit-content;
+  display: block;
+
+  .content {
+    .arrowImage {
+      background-color: black;
+      cursor: pointer;
+      position: absolute;
+      bottom: -2vw;
+      right: 0;
+    }
+
+    .rect1 {
+      background-color: black;
+      width: 100%;
+      position: absolute;
+      height: 4.32vw;
+      top: 40vw;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .rect2 {
+      background-color: black;
+      width: 100%;
+      position: absolute;
+      height: 101%;
+      top: 2vw;
+    }
+  }
+}

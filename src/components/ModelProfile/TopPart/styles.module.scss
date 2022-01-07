@@ -1,0 +1,371 @@
+.wrapper {
+  min-height: 200vw;
+  overflow: hidden;
+  width: 100vw;
+  max-width: 100%;
+
+  .rect1 {
+    position: absolute;
+    width: 100vw;
+    height: 2.76vw;
+    left: 0px;
+    top: 17.24vw;
+
+    background: #000000;
+  }
+
+  .rect2 {
+    position: absolute;
+    width: 100vw;
+    height: 2.76vw;
+    left: 0px;
+    top: 21.25vw;
+
+    background: #E6BF00;
+  }
+
+  .userPhoto {
+    position: absolute;
+    width: 21.5vw;
+    height: 21.5vw;
+    left: 3.9vw;
+    top: 11.8vw;
+    border-radius: 50%;
+  }
+
+  .goldButton {
+    color: black;
+    border: 2px solid #E9C720;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 120%;
+    text-align: center;
+  }
+
+  .blackGoldButton {
+    color: #E9C720;
+    background: black;
+    border: 2px solid #E9C720;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 120%;
+    text-align: center;
+  }
+
+  .modPFPButton {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 9vw;
+    top: 35vw;
+  }
+
+  .modPFPButtonSave {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 4vw;
+    top: 35vw;
+  }
+
+  .modPFPButtonCancel {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 15vw;
+    top: 35vw;
+  }
+
+  .modNameButton {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 35vw;
+    top: 37vw;
+    display: none;
+  }
+
+  .claimUsername {
+    position: absolute;
+    width: 11.04vw;
+    height: 10vw;
+    right: 4.74vw;
+    top: 27vw;
+    mix-blend-mode: hard-light;
+    display: none;
+  }
+
+  .modelName {
+    position: absolute;
+    width: 42vw;
+    height: 300px;
+    left: 35vw;
+    top: 24vw;
+
+    font-family: Bebas Neue;
+    font-size: 3.75vw;
+    line-height: 120.31%;
+    text-align: left;
+    word-break: break-word;
+    background: linear-gradient(90deg, #000000 4.23%, #E6BF00 105.79%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &.editing {
+      left: 30vw;
+    }
+  }
+
+  .socialIcons {
+    position: absolute;
+    width: 7vw;
+    height: 40vw;
+    right: 0;
+    top: 27vw;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      width: 4.3vw;
+      height: 4.3vw;
+      margin-bottom: 2vw;
+
+      &:nth-of-type(3) {
+        margin-right: 4vw;
+      }
+
+      img {
+        transition: 0.3s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .inputSocialIcons {
+    position: absolute;
+    width: 25vw;
+    height: 50vw;
+    right: 2vw;
+    top: 27vw;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    .inputRow {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 1vw;
+
+      img {
+        width: 4.3vw;
+        height: 4.3vw;
+        margin-right: 1vw;
+      }
+
+      input {
+        height: 30px;
+        background: black;
+        color: white;
+        border: 2px solid #E9C720;
+        outline: none;
+        padding-left: 4px;
+      }
+    }
+
+    .modSocialSave {
+      width: 10vw;
+      height: 3vw;
+    }
+  }
+
+  .modelDescription {
+    position: absolute;
+    width: 38vw;
+    left: 55vw;
+    top: 40vw;
+    z-index: 4;
+
+    font-family: Inter;
+    font-size: 1.8vw;
+    line-height: 130%;
+
+    color: #ffffff;
+
+    transform: rotate(23deg);
+    transform-origin: 0 0;
+
+    &.editing {
+      left: 45vw;
+    }
+  }
+
+  .editDescription {
+    position: absolute;
+    width: 38vw;
+    height: 38vw;
+    left: 30vw;
+    top: 40vw;
+    z-index: 3;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.8vw;
+    line-height: 130%;
+    background: transparent;
+    border: none;
+    outline: 1px dotted white;
+
+    color: #ffffff;
+  }
+
+  .modDescriptionButton {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 80vw;
+    top: 80vw;
+  }
+
+  .modDescriptionButtonSave {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 75vw;
+    top: 80vw;
+  }
+
+  .modDescriptionButtonCancel {
+    position: absolute;
+    width: 10vw;
+    height: 3vw;
+    left: 86vw;
+    top: 80vw;
+  }
+
+  .arrowImg {
+    width: 12.4vw;
+    height: 10.05vw;
+    margin-left: 2vw;
+    mix-blend-mode: screen;
+  }
+
+  .patternSection {
+    margin-top: 60vw;
+    margin-left: 10vw;
+    position: relative;
+    min-height: 150vw;
+    z-index: 3;
+
+    .patternWrapper3 {
+      margin-left: 10vw;
+
+      &.smallPattern {
+        min-height: 90vw;
+      }
+    }
+
+    .patternWrapper4 {
+      display: flex;
+      width: 90vw;
+      flex-wrap: wrap;
+      margin-top: 15vw;
+      align-content: baseline;
+    }
+  }
+
+  .ownershipText {
+    position: absolute;
+    width: 59.64vw;
+    height: 14vw;
+    left: 3.8vw;
+    top: 110vw;
+
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 5.2vw;
+    line-height: 100%;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+
+    background: linear-gradient(180deg, #000000 0%, #E6BF00 100%);
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .addMoreButton {
+    position: absolute;
+    width: 18vw;
+    height: 3vw;
+    left: 15vw;
+    top: 110vw;
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+  }
+
+  .marketplaceSection {
+    margin-top: -40vw;
+    z-index: 4;
+
+    h1 {
+      background: linear-gradient(90deg, #db00ff 4.23%, #2b67f1 105.79%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 5.2vw;
+      line-height: 121%;
+      margin-left: 5vw;
+    }
+
+    .marketplaceItems {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 9vw;
+      a {
+        z-index: 4;
+      }
+    }
+  }
+
+  .submitFormWrapper {
+    // position: absolute;
+    width: 95%;
+    margin-left: 5%;
+    margin-top: 120vw;
+    z-index: 10;
+
+    h1 {
+      background: linear-gradient(90deg, #000000 4.23%, #E6BF00 40.79%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: Bebas Neue;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 5.2vw;
+      line-height: 121%;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}

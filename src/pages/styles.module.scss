@@ -1,0 +1,88 @@
+.wrapper {
+  min-height: 100vw;
+  position: relative;
+
+  .titleSection {
+    padding-left: 3vw;
+    padding-top: 3vw;
+    h1 {
+      font-family: Bebas Neue;
+      font-size: 6.15vw;
+    }
+  
+    h2 {
+      color: #E6BF00;
+      font-family: Fira Sans Condensed;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 2.81vw;
+    }
+  }
+  
+
+  .modelImage1 {
+    position: absolute;
+    right: -0;
+    top: 0;
+    width: 56.2vw;
+    height: 61.875vw;
+  }
+
+  .rect1 {
+    position: absolute;
+    width: 43.7vw;
+    height: 17.5vw;
+    top: 22vw;
+    background: #000000;
+  }
+  
+  .rect2 {
+    position: absolute;
+    width: 46.51vw;
+    height: 17.5vw;
+    right: 0vw;
+    top: 60vw;
+    background: #000000;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10vw;
+    font-family: Bebas Neue;
+
+    a {
+      width: 100%;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-left: 5vw;
+
+      .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .arrowImage {
+        width: 16.66vw;
+        height: 16.66vw;
+      }
+    }
+  }
+
+  .modelImage2 {
+    position: absolute;
+    width: 65.52vw;
+    height: 65.52vw;
+    left: -12vw;
+  }
+
+  .modelImage3 {
+    position: absolute;
+    width: 18.33vw;
+    height: 69.16vw;
+    left: 40vw;
+    top: 39vw;
+  }
+}
