@@ -103,7 +103,7 @@ function Home(props) {
 
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product3.png" className="md:w-full enterimg" alt="" />
-            <a href="/web3-fashion-101">
+            <a href="/openelementals">
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
