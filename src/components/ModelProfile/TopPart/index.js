@@ -172,7 +172,7 @@ const ModelProfileTopPart = (props) => {
         </Button>
       )}
       <img className={styles.claimUsername} src="/images/model-page/claim-username.png" />
-
+      <div className={styles.blackBack}></div>
       <div className={[styles.modelName, isEdit ? styles.editing : ''].join(' ')}>
         {modelInfo['modelId'].toUpperCase()}
         <img className={styles.arrowImg} src="/images/model-page/arrow.png" />
@@ -340,7 +340,7 @@ const ModelProfileTopPart = (props) => {
       )}
       {isEdit && isEditingDescription && (
         <Button
-          className={[styles.modDescriptionButtonSave, styles.goldButton].join(' ')}
+          className={[styles.modDescriptionButtonSave, styles.blackGoldButton].join(' ')}
           onClick={() => saveModDescription()}
         >
           SAVE
@@ -348,7 +348,7 @@ const ModelProfileTopPart = (props) => {
       )}
       {isEdit && isEditingDescription && (
         <Button
-          className={[styles.modDescriptionButtonCancel, styles.goldButton].join(' ')}
+          className={[styles.modDescriptionButtonCancel, styles.blackGoldButton].join(' ')}
           onClick={() => cancelModDescription()}
         >
           CANCEL
@@ -388,19 +388,6 @@ const ModelProfileTopPart = (props) => {
               )
             })}
           </div>
-
-          {/* <div className={styles.patternWrapper}>
-            <div className={styles.selectionGroup}>
-              <img src="/images/model-page/pattern-selection.png" />
-              <img src="/images/model-page/pattern-selection.png" />
-              <img src="/images/model-page/pattern-selection.png" />
-              <img src="/images/model-page/pattern-selection.png" />
-              <img src="/images/model-page/pattern-selection.png" />
-            </div>
-            <div className={styles.gamePad}>
-              <img src="/images/model-page/gamepad.png" />
-            </div>
-          </div> */}
         </div>
       )}
 

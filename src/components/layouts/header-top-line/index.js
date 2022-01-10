@@ -158,7 +158,7 @@ const HeaderTopLine = ({ className, buttonText }) => {
                   <button className={styles.arrowBottom} onClick={() => setIsShowMenu(!isShowMenu)}>
                     <img
                       className={styles.arrowBottomImg}
-                      src='./images/icons/arrow-bottom.svg'
+                      src={`./images/icons/${isBlackHeader ? 'arrow-bottom' : 'arrow-bottom-black'}.svg`}
                       alt='arrow-bottom'
                     />
                   </button>

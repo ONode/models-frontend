@@ -105,11 +105,20 @@
     display: none;
   }
 
+  .blackBack {
+    background: black;
+    position: absolute;
+    left: 26vw;
+    right: 0;
+    top: 28.4vw;
+    height: 70vw;
+  }
+
   .modelName {
     position: absolute;
     width: 42vw;
     height: 300px;
-    left: 35vw;
+    left: 27vw;
     top: 24vw;
 
     font-family: Bebas Neue;
@@ -117,12 +126,12 @@
     line-height: 120.31%;
     text-align: left;
     word-break: break-word;
-    background: linear-gradient(90deg, #000000 4.23%, #E6BF00 105.79%);
+    background: linear-gradient(90deg, #000000 0%, #E6BF00 50.79%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
     &.editing {
-      left: 30vw;
+      left: 27vw;
     }
   }
 
@@ -131,7 +140,7 @@
     width: 7vw;
     height: 40vw;
     right: 0;
-    top: 27vw;
+    top: 30vw;
     display: flex;
     flex-direction: column;
 
@@ -158,7 +167,7 @@
     width: 25vw;
     height: 50vw;
     right: 2vw;
-    top: 27vw;
+    top: 30vw;
     display: flex;
     flex-direction: column;
 
@@ -195,8 +204,8 @@
   .modelDescription {
     position: absolute;
     width: 38vw;
-    left: 55vw;
-    top: 40vw;
+    left: 41vw;
+    top: 38vw;
     z-index: 4;
 
     font-family: Inter;
@@ -205,11 +214,8 @@
 
     color: #ffffff;
 
-    transform: rotate(23deg);
-    transform-origin: 0 0;
-
     &.editing {
-      left: 45vw;
+      left: 30vw;
     }
   }
 
@@ -218,7 +224,7 @@
     width: 38vw;
     height: 38vw;
     left: 30vw;
-    top: 40vw;
+    top: 38vw;
     z-index: 3;
 
     font-family: Inter;
