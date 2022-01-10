@@ -84,8 +84,10 @@ const HeaderTopLine = ({ className, buttonText }) => {
   const isModelProfilePage = arrayPath && arrayPath.length > 1 && arrayPath[1].toLowerCase() === 'model'
   const isGlobalPage = arrayPath && arrayPath.length > 1 && arrayPath[1].toLowerCase() === 'global'
   const isAvatarPage = arrayPath && arrayPath.length > 1 && arrayPath[1].toLowerCase() === 'avatarlibraries'
+  const isMintingPage = arrayPath && arrayPath.length > 1 && arrayPath[1].toLowerCase() === 'minting'
+  const isOpenElementalsPage = arrayPath && arrayPath.length > 1 && arrayPath[1].toLowerCase() === 'openelementals'
 
-  const isBlackHeader = !isGlobalPage && !isAvatarPage
+  const isBlackHeader = !isGlobalPage && !isAvatarPage && !isMintingPage && !isOpenElementalsPage
 
   console.log('isGlobalPage: ', isGlobalPage)
 

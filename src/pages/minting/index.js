@@ -293,7 +293,7 @@ function Minting(props) {
   }
 
   return (
-    <div className="mintingdiv">
+    <div className={styles.mintingDiv}>
       <Popper open={open} anchorEl={anchorEl} placement="right" transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
@@ -301,80 +301,71 @@ function Minting(props) {
           </Fade>
         )}
       </Popper>
-      <div className="bg-black mintingcontainer">
+      <div className={styles.mintingContainer}>
         {!isMobile ? (
           <div className="mt-10">
             <p
-              className="font-inter font-black whitespace-normal text-gradient"
+              className={styles.textGoldGradient}
               style={{ fontSize: '86px' }}
             >
               Contribute to Open
             </p>
             <p
-              className="font-inter font-black whitespace-normal text-gradient"
+              className={styles.textGoldGradient}
               style={{ fontSize: '86px' }}
             >
-              Source On-Chain
-            </p>
-            <p
-              className="font-inter font-black whitespace-normal text-gradient"
-              style={{ fontSize: '86px' }}
-            >
-              Libraries
+              Elementals On-Chain Libraries
             </p>
           </div>
         ) : (
           <>
             <div className="mt-10 mintingheader">
               <p
-                className="font-inter font-black whitespace-normal text-gradient"
+                className={styles.textGoldGradient}
                 style={{ fontSize: '50px' }}
               >
                 Contribute to
               </p>
               <p
-                className="font-inter font-black whitespace-normal text-gradient"
+                className={styles.textGoldGradient}
                 style={{ fontSize: '50px' }}
               >
-                Open Source
+                Open Elemantals
               </p>
               <p
-                className="font-inter font-black whitespace-normal text-gradient"
+                className={styles.textGoldGradient}
                 style={{ fontSize: '50px' }}
               >
                 On-Chain
               </p>
               <p
-                className="font-inter font-black whitespace-normal text-gradient"
+                className={styles.textGoldGradient}
                 style={{ fontSize: '50px' }}
               >
                 Libraries
               </p>
             </div>
-            <div className="greenbox" />
-            <div className="violetbox" />
           </>
         )}
 
         <div className="mintingtext">
-          <p className="text-gray-50 minttext">
-            Enter the information in the fillout boxes below to mint your 1155 NFT and contribute to
-            our open sourced material, pattern, texture on-chain libraries. Your contribution can be
-            used in master garments by other designers, artists, creators— it is open sourced. Open
-            source doesn’t mean without monetisation. Our infrastructure is being built to
-            eventually support automated fractional royalties for any designer as they contribute to
-            open source libraries that can be leveraged in both the digital and physical dimensions.
-            A decentralised commercial model.
+          <p className="font-black minttext">
+            Enter the information in the fillout boxes below to mint your 1155 NFT and contribute to 
+            our open sourced material, pattern, texture on-chain libraries. Your contribution can be 
+            used in master garments by other designers, artists, creators— it is open sourced. Open 
+            source doesn’t mean without monetisation. Our infrastructure is being built to eventually 
+            support automated fractional royalties for any designer as they contribute to open source 
+            libraries that can be leveraged in both the digital and physical dimensions. A decentralised 
+            commercial model. 
           </p>
-          <p className="text-gray-50 minttext mt-5">
-            Although we can’t automatically enforce in smart contract code this fractional
-            cross-chain, cross-realm royalty distribution as of yet, we still are continuing to
-            prove out the model and hope that those that use these open source prints contribute a
-            fractional portion of the sales back to the DIGITALAX, as we have done and plan to do
-            for anyone contributing to our on-chain libraries going forward. Your NFT is minted on
-            Matic Network for 99% more energy efficiency than the Ethereum or Bitcoin blockchains.
-            Through our MultiToken bridge these NFTs can be bridged back to Ethereum for additional
-            interoperability and functionalities.
+          <p className="font-black minttext mt-5">
+            Although we can’t automatically enforce in smart contract code this fractional cross-chain, 
+            cross-realm royalty distribution as of yet, we still are continuing to prove out the model 
+            and hope that those that use these open source prints contribute a fractional portion of the 
+            sales back to the DIGITALAX, as we have done and plan to do for anyone contributing to our 
+            on-chain libraries going forward. Your NFT is minted on Matic Network for 99% more energy 
+            efficiency than the Ethereum or Bitcoin blockchains. Through our MultiToken bridge these 
+            NFTs can be bridged back to Ethereum for additional interoperability and functionalities.  
           </p>
         </div>
 
@@ -383,7 +374,7 @@ function Minting(props) {
             <div className="flex justify-center">
               <div className="w-1/2 flex flex-col mr-10">
                 <Input
-                  label="Designer ID"
+                  label="Creator ID"
                   required="true"
                   description="Creator Name or pseudonym."
                   value={designerId}
@@ -398,7 +389,7 @@ function Minting(props) {
                   <Select
                     id='itemType'
                     className="mt-16 border-1 border-third bg-white h-9 text-left"
-                    style={{color: 'white'}}
+                    style={{color: 'black'}}
                     value={pattern}
                     inputProps={{
                       classes: {
@@ -457,7 +448,7 @@ function Minting(props) {
                 />
                 <div className="flex flex-col mt-10 w-full">
                   <div className="flex">
-                    <span className="font-inter font-extrabold text-gray-50 text-sm mb-2">
+                    <span className="font-inter font-extrabold text-black text-sm mb-2">
                       Rendered File Upload
                     </span>
                     <LightTooltip
@@ -491,7 +482,7 @@ function Minting(props) {
                 </div>
                 {pattern === 'material' && <div className="flex flex-col mt-10 w-full">
                   <div className="flex">
-                    <span className="font-inter font-extrabold text-gray-50 text-sm mb-2">
+                    <span className="font-inter font-extrabold text-black text-sm mb-2">
                       Source File Upload
                     </span>
                     <LightTooltip
@@ -528,7 +519,7 @@ function Minting(props) {
             </div>
             <div className="w-full">
               <div className="flex flex-col mt-16">
-                <span className="font-inter font-extrabold text-gray-50 text-sm mb-2">
+                <span className="font-inter font-extrabold text-black text-sm mb-2">
                   Description
                 </span>
                 <InputBase
@@ -628,7 +619,7 @@ function Minting(props) {
                 <div style={{ marginTop: 32 }}>
                   <div className="flex flex-col mt-10 w-full">
                     <div className="flex">
-                      <span className="font-inter font-extrabold text-gray-50 mb-2" style={{fontSize: 14, lineHeight: '22px'}}>
+                      <span className="font-inter font-extrabold text-black mb-2" style={{fontSize: 14, lineHeight: '22px'}}>
                         Rendered File Upload
                       </span>
 
@@ -669,7 +660,7 @@ function Minting(props) {
                 {pattern === 'material' && <div style={{ marginTop: 32 }}>
                   <div className="flex flex-col mt-10 w-full">
                     <div className="flex">
-                      <span className="font-inter font-extrabold text-gray-50 mb-2" style={{fontSize: 14, lineHeight: '22px'}}>
+                      <span className="font-inter font-extrabold text-black mb-2" style={{fontSize: 14, lineHeight: '22px'}}>
                         Source File Upload
                       </span>
 
@@ -718,7 +709,7 @@ function Minting(props) {
                 />
               </div>
               <div className="flex flex-col" style={{ marginTop: 61 }}>
-                <span className="font-inter font-extrabold text-gray-50 mb-2" style={{ fontSize: 14, lineHeight: '22px', marginBottom: 9 }}>
+                <span className="font-inter font-extrabold text-black mb-2" style={{ fontSize: 14, lineHeight: '22px', marginBottom: 9 }}>
                   Description
                 </span>
                 <InputBase
@@ -732,8 +723,8 @@ function Minting(props) {
               </div>
               <button
                 onClick={handleContributeClick}
-                className="font-black text-base font-inter px-4 bg-fourth rounded-xl max-w-min"
-                style={{ color: '#DB00FF', marginTop: 38, paddingTop: 7, paddingBottom: 8, fontSize: 15 }}
+                className="text-white font-black text-base font-inter px-4 bg-black rounded-xl max-w-min"
+                style={{ marginTop: 38, paddingTop: 7, paddingBottom: 8, fontSize: 15 }}
               >
                 Contribute
               </button>
@@ -743,8 +734,7 @@ function Minting(props) {
         {!isMobile && (
           <button
             onClick={handleContributeClick}
-            className="font-black text-base font-inter p-2 px-4 bg-fourth rounded-xl mt-12 max-w-min"
-            style={{ color: '#DB00FF' }}
+            className="font-black text-white text-base font-inter p-2 px-4 bg-black rounded-xl mt-12 max-w-min"
           >
             Contribute
           </button>

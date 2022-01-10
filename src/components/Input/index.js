@@ -81,9 +81,9 @@ function Input(props) {
     <div className="flex flex-col mt-10">
       <div className="flex">
         {!isMobile?(
-          <span className="font-inter font-extrabold text-gray-50 text-sm mb-2">{label}</span>
+          <span className="font-inter font-extrabold text-black text-sm mb-2">{label}</span>
         ):(
-          <span className="font-inter font-extrabold text-gray-50 mb-2" style={{fontSize: 14, lineHeight: '22px', fontWeight: 800 }}>{label}</span>
+          <span className="font-inter font-extrabold text-black mb-2" style={{fontSize: 14, lineHeight: '22px', fontWeight: 800 }}>{label}</span>
         )}
         {required &&
           (isMobile ? (

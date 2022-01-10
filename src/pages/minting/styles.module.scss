@@ -5,3 +5,46 @@
 .arrowClass {
   color: white !important;
 }
+
+.mintingDiv {
+  height: fit-content;
+  display: block;
+  padding-top:5rem;
+  padding-bottom: 4rem;
+  padding-left:0.5rem;
+  margin-left: 4rem;
+  margin-bottom:2.5rem;
+
+  .mintingContainer {
+    width: 73.5%;
+    padding-bottom:4rem;
+    padding-right: 6rem;
+    padding-left:4rem;
+  }
+
+  .textGoldGradient {
+    background: linear-gradient(90deg, #E6BF00 4.23%, #898989 50.25%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Bebas Neue;
+    font-size: 5.2vw;
+  }
+
+  @media only screen and (max-width: 415px) {
+    height: fit-content;
+    display: block;
+    flex-direction: column;
+    padding-top:0;
+    padding-bottom: 4rem;
+    padding-left:0;
+    margin-left: 0;
+    margin-bottom:371px;
+    background: none;
+
+    .mintingContainer {
+      width: 100%;
+      margin:0;
+      padding:0
+    }
+  }
+}

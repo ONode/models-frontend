@@ -1,7 +1,7 @@
 .questionMark {
   width: 15px;
   height: 15px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid black;
   border-radius: 15px;
   display: inline-flex;
   justify-content: center;
@@ -9,8 +9,7 @@
   font-size: 0.5625rem;
   line-height: 11px;
   font-weight: 600;
-  color: white;
-  // background: #fff;
+  color: black;
   cursor: pointer;
   margin-left: 6px;
 }
