@@ -1,22 +1,79 @@
 import { gql } from 'graphql-request';
 
-export const COLLECTIONS = gql`
-  query collections {
-    digitalaxGarmentCollections(first: 1000) {
+export const getAuctionContracts = gql`
+  {
+    digitalaxAuctionContracts(first: 1000) {
       id
-      garmentAuctionID
-      rarity
+      minBidIncrement
+      bidWithdrawalLockTime
+      platformFee
+      platformFeeRecipient
+      totalSales
     }
   }
-`;
+`
 
-export const COLLECTIONSV2 = gql`
-  query collectionsv2 {
-    digitalaxGarmentV2Collections(first: 1000) {
+export const getMaterialVS = gql`
+  {
+    digitalaxMaterialV2S(first: 1000) { 
+      id 
+      name 
+      image
+      tokenUri 
+      animation 
+      description 
+      attributes{ 
+        value 
+        type 
+      } 
+    } 
+  }
+`
+
+export const getCollectionGroups = gql`
+  query digitalaxCollectionGroups {
+    digitalaxCollectionGroups(first: 100, skip: 2) {
       id
-      garmentAuctionID
-      rarity
-      valueSold
+      auctions {
+        id
+        topBid
+        designer {
+          id
+          name
+          image
+        }
+        garment {
+          id
+          animation
+          image
+          name
+        }
+      }
+      collections {
+        id
+        rarity
+        garments(first: 1) {
+          id
+          animation
+          image
+          name
+        }
+        designer {
+          id
+          name
+          image
+        }
+        valueSold
+      }
+    }
+  }
+`
+
+export const getDigitalaxGarmentNftV2GlobalStats = gql`
+  query digitalaxGarmentNFTV2GlobalStats {
+    digitalaxGarmentNFTV2GlobalStats(first: 1) {
+      id
+      monaPerEth
     }
   }
 `;
@@ -78,20 +135,6 @@ export const COLLECTION_GROUPS = gql`
   }
 `;
 
-export const DIGITALAX_GARMENT_COLLECTIONS = gql`
-  query digitalaxGarmentCollections {
-    digitalaxGarmentCollections(first: 10) {
-      id
-      rarity
-      valueSold
-      garments(first: 1000) {
-        id
-        animation
-        name
-      }
-    }
-  }
-`;
 
 export const DIGITALAX_MARKETPLACE_OFFERS = gql`
   query digitalaxMarketplaceOffers {
@@ -424,6 +467,26 @@ export const DIGITALAX_GARMENT_V2S = gql`
     digitalaxGarmentV2S(where: { id_in: $ids }) {
       id
       owner
+    }
+  }
+`;
+
+export const AVATAR_ELEMENTALS = gql`
+  query avatarElementals($first: Int!, $lastID: ID!) {
+    avatarElementals(first: $first, where: { id_gt: $lastID }) {
+      id
+      tokenUri
+      totalSupply
+      image
+      animation
+      name
+      description
+      external
+      attributes {
+        id
+        type
+        value
+      }
     }
   }
 `;
@@ -776,6 +839,318 @@ export const GUILD_WHITELISTED_NFT_STAKERS_BY_STAKER = gql`
         name
         description
       }
+    }
+  }
+`;
+
+
+export const GET_ALL_NFTS = gql`
+  query nfts {
+    nfts(first: 1000) {
+      id
+      tokenId
+      token {
+        id
+      }
+      name
+      description
+      lastSalePrice
+      lastSeller
+      lastBuyer
+      tradeCount
+      totalVolume
+      lastRoyaltyFactor
+      lastTradeIndex
+      uri
+    }
+  }
+`;
+
+export const GET_ALL_NFTS_BY_OWNER = gql`
+  query tokens($addresses: [ID!], $owner: ID!) {
+    tokens(first: 1000, where: { owner: $owner }) {
+      id
+      name
+      description
+      image
+      contract {
+        id
+      }
+      tokenID
+      owner {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_ALL_NFTS_BY_IDS = gql`
+  query tokens($ids: [ID!]) {
+    tokens(first: 1000, where: { id_in: $ids }) {
+      id
+      name
+      description
+      image
+      contract {
+        id
+      }
+      tokenID
+      owner {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_NFT_BY_ID = gql`
+  query token($id: ID!) {
+    token(id: $id) {
+      id
+      name
+      description
+      image
+      contract {
+        id
+      }
+      tokenID
+      metadata
+      owner {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_NFT_BY_CONTRACT_AND_TOKEN_ID = gql`
+  query tokens($contract: String!, $tokenId: String!) {
+    tokens(where: { contract: $contract, tokenID: $tokenId }) {
+      id
+      name
+      description
+      image
+      contract {
+        id
+      }
+      tokenID
+      metadata
+      owner {
+        id
+      }
+    }
+  }
+`;
+
+export const IS_NFT_LISTED = gql`
+  query orders($owner: String, $token: String, $tokenId: [String!]) {
+    orders(where: { maker: $owner, token: $token, tokenIds_contains: $tokenId, expiry: 0 }) {
+      id
+      price
+      token {
+        id
+      }
+      tokenIds
+      maker
+      taker
+      buyOrSell
+      anyOrAll
+      expiry
+      tradeCount
+      tradeMax
+    }
+  }
+`;
+
+export const GET_SECONDARY_ORDER_BY_CONTRACT_AND_TOKEN_ID = gql`
+  query orders($contract: String!, $tokenIds: [String!]) {
+    orders(where: { token: $contract, tokenIds_contains: $tokenIds }) {
+      id
+      price
+      token {
+        id
+      }
+      tokenIds
+      maker
+      taker
+      buyOrSell
+      anyOrAll
+      expiry
+      tradeCount
+      tradeMax
+    }
+  }
+`;
+
+export const GET_SECONDARY_ORDER_BY_CONTRACT_TOKEN_AND_BUY_OR_SELL = gql`
+  query orders($contract: String!, $tokenIds: [String!], $buyOrSell: String) {
+    orders(
+      where: { token: $contract, tokenIds_contains: $tokenIds, buyOrSell: $buyOrSell }
+      orderBy: timestamp
+      orderDirection: desc
+    ) {
+      id
+      price
+      token {
+        id
+      }
+      tokenIds
+      maker
+      createdTxHash
+      executedTokenIds
+      taker
+      buyOrSell
+      anyOrAll
+      expiry
+      tradeCount
+      tradeMax
+      timestamp
+    }
+  }
+`;
+
+export const GET_SECODARY_ORDERS_BY_OWNER = gql`
+  query orders($owner: String!) {
+    orders(where: { maker: $owner }) {
+      id
+      price
+      token {
+        id
+      }
+      tokenIds
+      maker
+      taker
+      buyOrSell
+      anyOrAll
+      expiry
+      tradeCount
+      tradeMax
+    }
+  }
+`;
+
+export const GET_SECONDARY_ORDERS = gql`
+  query orders {
+    orders(where: { buyOrSell: "Buy" }, orderBy: timestamp, orderDirection: desc) {
+      id
+      price
+      token {
+        id
+      }
+      tokenIds
+      maker
+      createdTxHash
+      executedTokenIds
+      taker
+      buyOrSell
+      anyOrAll
+      expiry
+      tradeCount
+      tradeMax
+      timestamp
+    }
+  }
+`;
+
+export const GET_SELLING_NFTS = gql`
+  query orders {
+    orders(where: { buyOrSell: "Sell" }, orderBy: timestamp, orderDirection: desc) {
+      id
+      price
+      token {
+        id
+      }
+      tokenIds
+      maker
+      taker
+      buyOrSell
+      anyOrAll
+      expiry
+      tradeCount
+      tradeMax
+      executedTokenIds
+      timestamp
+    }
+  }
+`;
+
+export const GET_SECONDARY_NFT_INFO = gql`
+  query nft($id: ID!) {
+    nft(id: $id) {
+      id
+      tokenId
+      token {
+        id
+      }
+      lastSalePrice
+      lastSeller
+      lastBuyer
+      tradeCount
+      totalVolume
+      lastRoyaltyFactor
+      lastTradeIndex
+      lastOrderIndex
+      orders {
+        id
+      }
+      trades {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_TRADES_BY_ORDER_ID = gql`
+  query trades($ids: [String!]) {
+    trades(where: { orders_contains: $ids }) {
+      id
+      royaltyFactor
+      blockNumber
+      taker
+      timestamp
+      executedTxHash
+      orders(where: { id_in: $ids }) {
+        id
+        price
+      }
+      tokens {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_DIGITALAX_COLLECTION_GROUPS_BY_GARMENT = gql`
+  query digitalaxCollectionGroups($garment: [String!]) {
+    digitalaxCollectionGroups(first: 1000) {
+      id
+      collections(where: { garments_contains: $garment }) {
+        garments {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const PATRONS_MARKETPLACE_OFFERS = gql`
+  query patronMarketplaceOffers($first: Int!, $lastID: ID!) {
+    patronMarketplaceOffers(first: $first, where: { id_gt: $lastID }) {
+      id
+      garmentCollection {
+        id
+        garments {
+          id
+          designer
+          name
+          description
+          owner
+          tokenUri
+        }
+        designer {
+          id
+          name
+        }
+      }
+      primarySalePrice
     }
   }
 `;

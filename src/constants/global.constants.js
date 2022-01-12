@@ -17,6 +17,6 @@ export const USERNAME_AVAILABLE = 1
 export const USERNAME_ALREADY_EXISTS = 0
 export const USERNAME_ERROR = 2
 
-export const POLYGON_MAINNET_CHAINID = 0x89
 export const MUMBAI_TESTNET_CHAINID = 0x13881
-export const ETHEREUM_MAINNET_CHAINID = 0x1
+export const MAINNET_CHAINID = 0x1
+export const POLYGON_CHAINID = 0x89

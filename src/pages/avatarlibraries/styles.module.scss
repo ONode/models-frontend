@@ -1,70 +1,18 @@
-.patternsSearchWrapper {
-  text-align: center;
-  width: 60%;
-  margin: auto;
+@import "../../assets/scss/helpers/grid.scss";
+@import "../../assets/scss/helpers/variables.scss";
 
-  @media (max-width: 576px) {
-    width: 100%;
-    padding: 1rem;
-  }
+.wrapper {
+  @include wrapper();
+  margin-bottom: 25px;
+  margin-top: 68px;
+  width: 100%;
 
-  p {
+  h1 {
+    font-family: TypoGraphica;
+    margin-bottom: 20px;
+    font-size: 12.5vw;
+    line-height: 100%;
     text-align: center;
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 33px;
-    text-align: center;
-    margin-bottom: 2rem;
-
-    color: #ffffff;
-
-    @media (max-width: 576px) {
-      font-size: 16px;
-      line-height: 25px;
-    }
-
-    a {
-      color: white;
-      text-decoration: underline;
-    }
-  }
-
-  input {
-    height: 60px;
-    width: 400px;
-    background: rgba(192, 71, 231, 0.3);
-    border: 7px solid #c047e7;
-    box-sizing: border-box;
-    color: white;
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 27px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    outline: none;
-    margin: auto;
-    margin-bottom: 3rem;
-
-    @media (max-width: 576px) {
-      width: 100%;
-    }
-
-    &::placeholder {
-      font-family: Poppins;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 27px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: rgba(255, 0, 251, 0.5);
-    }
   }
 }
 

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+
 import styles from './styles.module.scss'
 
 import FashionItem from '@components/user-profile/fashion-item'
+import SecondaryInfoCard from '@components/secondary-info-card'
 
 import {
   getDigitalaxGarmentsByOwner,
@@ -23,16 +26,30 @@ import {
   getDigitalaxLookNFTsByOwner,
   getDigitalaxGarmentV2CollectionsByGarmentIDs,
   getDigitalaxLookGoldenTicketsByOwner,
-  getGuildWhitelistedNFTStakersByStaker
+  getGuildWhitelistedNFTStakersByStaker,
+  getAllNFTsByOwner,
+  getSecondaryOrderByOwner,
+  getDigitalaxMarketplaceV2Offers,
+  getNFTById,
+  getSecondaryOrderByContractTokenAndBuyorsell,
+  getPatronMarketplaceOffers
 } from '@services/api/apiService'
 
-import { generateLookImage, getRarityId } from '@utils/helpers'
-import config from '@utils/config'
+import digitalaxApi from '@services/api/espa/api.service'
+import { getEnabledNetworkByChainId } from '@services/network.service'
+
+import { getChainId } from '@selectors/global.selectors'
+
+import { filterOrders, generateLookImage, getRarityId } from '@utils/helpers'
 
 import {
-  DRIP_COLLECTION_IDS,
-  DRIP_COLLECTION_NAMES
-} from '@constants/drip_collection_ids'
+  getAllResultsFromQuery,
+  getAllResultsFromQueryWithoutOwner
+ } from '@helpers/thegraph.helpers'
+
+import config from '@utils/config'
+
+import { DRIP_COLLECTION_IDS, DRIP_COLLECTION_NAMES } from '@constants/drip_collection_ids'
 
 import {
   DIGITAL_CHANGING_ROOM,
@@ -41,11 +58,15 @@ import {
   GENESIS_MONA_NFT,
   LOOK_FASHION_LOOT,
   PODE,
-  GDN_MEMBERSHIP_NFT
+  GDN_MEMBERSHIP_NFT,
+  SECONDARY_MARKETPLACE_NFT,
+  PATRON_REALM_NFT
 } from '@constants/nft_categories'
 
-const MAINNET_CHAINID = 0x1
-const POLYGON_CHAINID = 0x89
+import {
+  MAINNET_CHAINID,
+  POLYGON_CHAINID
+} from '@constants/global.constants'
 
 const categories = [
   DIGITAL_CHANGING_ROOM,
@@ -54,53 +75,28 @@ const categories = [
   GENESIS_MONA_NFT,
   LOOK_FASHION_LOOT,
   PODE,
-  GDN_MEMBERSHIP_NFT
+  GDN_MEMBERSHIP_NFT,
+  SECONDARY_MARKETPLACE_NFT,
+  PATRON_REALM_NFT
 ]
 
-const DigitalChangingRoom = props => {
+const DigitalChangingRoom = (props) => {
   const { className, owner } = props
   const [currentPage, setCurrentPage] = useState(0)
+  const chainId = useSelector(getChainId)
   const [currentCategory, setCurrentCategory] = useState(0)
   const [ownedNFTs, setOwnedNFTs] = useState([])
+  const [ownedOrders, setOwnedOrders] = useState([])
   const showPerPage = 10
 
-  const getAllResultsFromQuery = async (query, resultKey, chainId, owner) => {
-    let lastID = ''
-    let isContinue = true
-    const fetchCountPerOnce = 1000
-
-    const resultArray = []
-    try {
-      while (isContinue) {
-        const result = await query(chainId, owner, fetchCountPerOnce, lastID)
-        if (!result[resultKey] || result[resultKey].length <= 0) isContinue = false
-        else {
-          resultArray.push(...result[resultKey])
-          if (result[resultKey].length < fetchCountPerOnce) {
-            isContinue = false
-          } else {
-            lastID = result[resultKey][fetchCountPerOnce - 1]['id']
-          }
-        }
-      }
-    } catch (e) {
-      
-    }
-
-    
-    
-    return resultArray
-  }
-  
   useEffect(() => {
     const getAllNFTs = async () => {
-
       // get digitalax NFTs on Mainnet
       const digitalaxNFTsMainnet = await getAllResultsFromQuery(
-        getDigitalaxGarmentsByOwner, 
-        'digitalaxGarments', 
+        getDigitalaxGarmentsByOwner,
+        'digitalaxGarments',
         MAINNET_CHAINID,
-        owner
+        owner,
       )
 
       // get digitalax NFTs on Polygon
@@ -108,7 +104,7 @@ const DigitalChangingRoom = props => {
         getDigitalaxGarmentsByOwner,
         'digitalaxGarments',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
 
       // get Digitalax NFTv2s on Polygon
@@ -116,7 +112,7 @@ const DigitalChangingRoom = props => {
         getDigitalaxGarmentV2sByOwner,
         'digitalaxGarmentV2S',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
 
       // Get Staked NFTV2s on Polygon
@@ -124,68 +120,97 @@ const DigitalChangingRoom = props => {
         getDigitalaxNFTStakersByOwner,
         'digitalaxNFTStakers',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
 
-      const digitalaxStakedNFTsPolygon = 
-        digitalaxNFTStakersPolygon && digitalaxNFTStakersPolygon.length > 0 
+      const patronMarketplaceOffers = await getAllResultsFromQueryWithoutOwner(
+        getPatronMarketplaceOffers, 
+        'patronMarketplaceOffers', 
+        POLYGON_CHAINID
+      )
+
+      const patronCollectionIDs = patronMarketplaceOffers && patronMarketplaceOffers.length
+        ? patronMarketplaceOffers.map(offer => parseInt(offer.id))
+        : []
+
+      // console.log('patronCollectionIDs: ', patronCollectionIDs)
+
+
+      const digitalaxStakedNFTsPolygon =
+        digitalaxNFTStakersPolygon && digitalaxNFTStakersPolygon.length > 0
           ? digitalaxNFTStakersPolygon[0].garments
           : []
 
       const guildWhitelistedNFTStakersPolygon = await getAllResultsFromQuery(
         getGuildWhitelistedNFTStakersByStaker,
-          'guildWhitelistedNFTStakers',
-          POLYGON_CHAINID,
-          owner
-        )
+        'guildWhitelistedNFTStakers',
+        POLYGON_CHAINID,
+        owner,
+      )
 
-      const guildWhitelistedStakedNFTsPolygon = 
-      guildWhitelistedNFTStakersPolygon && guildWhitelistedNFTStakersPolygon.length > 0 
-          ? guildWhitelistedNFTStakersPolygon[0].garments.filter(
-              item => item.tokenAddress == config.DTX_ADDRESSES['matic'].toLowerCase(),
-            ).map(garment => {
-              return {
-                ...garment,
-                id: garment.id.split('-')[1]
-              }
-            })
-          : []    
-
+      const guildWhitelistedStakedNFTsPolygon =
+        guildWhitelistedNFTStakersPolygon && guildWhitelistedNFTStakersPolygon.length > 0
+          ? guildWhitelistedNFTStakersPolygon[0].garments
+              .filter((item) => item.tokenAddress == config.DTX_ADDRESSES['matic'].toLowerCase())
+              .map((garment) => {
+                return {
+                  ...garment,
+                  id: garment.id.split('-')[1],
+                }
+              })
+          : []
 
       const allDigitalaxNFTV2sPolygon = [
         ...digitalaxNFTV2sPolygon,
         ...digitalaxStakedNFTsPolygon,
-        ...guildWhitelistedStakedNFTsPolygon
-      ].map(item => item.id)
+        ...guildWhitelistedStakedNFTsPolygon,
+      ].map((item) => item.id)
 
       const digitalaxGarmentV2CollectionsPolygon = await getAllResultsFromQuery(
         getDigitalaxGarmentV2CollectionsByGarmentIDs,
         'digitalaxGarmentV2Collections',
         POLYGON_CHAINID,
-        allDigitalaxNFTV2sPolygon
+        allDigitalaxNFTV2sPolygon,
       )
 
-      const availableCollections = 
-        digitalaxGarmentV2CollectionsPolygon.filter(
-          item => item.garments && item.garments.length > 0
-        )
-      
-      const digitalaxNFTV2sPolygonDrip = [].concat.apply([], 
-        availableCollections.filter(
-          collection => DRIP_COLLECTION_IDS.indexOf(parseInt(collection.id)) >= 0
-        ).map(item => {
-          return item.garments.map(garment => {
-            return {
-              ...garment,
-              collectionId: item.id
-            }
-          })
-        })
+      const availableCollections = digitalaxGarmentV2CollectionsPolygon.filter(
+        (item) => item.garments && item.garments.length > 0,
       )
 
-      const digitalaxNFTV2sPolygonNonDrip = [].concat.apply([], 
+      const digitalaxNFTV2sPolygonDrip = [].concat.apply(
+        [],
+        availableCollections
+          .filter((collection) => DRIP_COLLECTION_IDS.indexOf(parseInt(collection.id)) >= 0)
+          .map((item) => {
+            return item.garments.map((garment) => {
+              return {
+                ...garment,
+                collectionId: item.id,
+              }
+            })
+          }),
+      )
+
+      const digitalaxNFTV2sPolygonNonDrip = [].concat.apply(
+        [],
+        availableCollections
+          .filter(
+            (item) => DRIP_COLLECTION_IDS.indexOf(parseInt(item.id)) < 0
+              && patronCollectionIDs.indexOf(parseInt(item.id)) < 0
+          )
+          .map((item) => {
+            return item.garments.map((garment) => {
+              return {
+                ...garment,
+                collectionId: item.id,
+              }
+            })
+          }),
+      )
+
+      const patronNFTS = [].concat.apply([], 
         availableCollections.filter(
-          item => DRIP_COLLECTION_IDS.indexOf(parseInt(item.id)) < 0
+          item => patronCollectionIDs.indexOf(parseInt(item.id))
         ).map(item => {
           return item.garments.map(garment => {
             return {
@@ -199,113 +224,119 @@ const DigitalChangingRoom = props => {
       const weirdItems = [
         ...digitalaxNFTV2sPolygon,
         ...digitalaxStakedNFTsPolygon,
-        ...guildWhitelistedStakedNFTsPolygon
+        ...guildWhitelistedStakedNFTsPolygon,
       ].filter(
-        garment => digitalaxNFTV2sPolygonDrip.findIndex(item => item.id == garment.id) < 0
-        && digitalaxNFTV2sPolygonNonDrip.findIndex(item => item.id == garment.id) < 0
+        (garment) =>
+          digitalaxNFTV2sPolygonDrip.findIndex((item) => item.id == garment.id) < 0
+          && digitalaxNFTV2sPolygonNonDrip.findIndex((item) => item.id == garment.id) < 0
+          && patronNFTS.findIndex(item => item.id == garment.id) < 0
       )
 
       // console.log('digitalaxNFTV2sPolygonDrip: ', digitalaxNFTV2sPolygonDrip)
       // console.log('digitalaxNFTV2sPolygonNonDrip: ', digitalaxNFTV2sPolygonNonDrip)
       // console.log('weirdItems: ', weirdItems)
 
-
       // Get Staked NFTs on Mainnet
-      const digitalaxGarmentStakedTokensMainnet 
-        = await getAllResultsFromQuery(
-          getDigitalaxGarmentStakedTokensByOwner,
-          'digitalaxGarmentStakedTokens',
-          MAINNET_CHAINID,
-          owner
+      const digitalaxGarmentStakedTokensMainnet = await getAllResultsFromQuery(
+        getDigitalaxGarmentStakedTokensByOwner,
+        'digitalaxGarmentStakedTokens',
+        MAINNET_CHAINID,
+        owner,
       )
-      const stakedGarmentTokenIDsMainnet = digitalaxGarmentStakedTokensMainnet.map(item => item.id)
-      const digitalaxStakedNFTsMainnet = stakedGarmentTokenIDsMainnet && stakedGarmentTokenIDsMainnet.length > 0
-        ? await getAllResultsFromQuery(
-          getDigitalaxGarments,
-          'digitalaxGarments',
-          MAINNET_CHAINID,
-          stakedGarmentTokenIDsMainnet
-        )
-        : []
-      
+      const stakedGarmentTokenIDsMainnet = digitalaxGarmentStakedTokensMainnet.map(
+        (item) => item.id,
+      )
+      const digitalaxStakedNFTsMainnet =
+        stakedGarmentTokenIDsMainnet && stakedGarmentTokenIDsMainnet.length > 0
+          ? await getAllResultsFromQuery(
+              getDigitalaxGarments,
+              'digitalaxGarments',
+              MAINNET_CHAINID,
+              stakedGarmentTokenIDsMainnet,
+            )
+          : []
+
       // get digitalax subscriptions (digi bundle) on polygon
       const digitalaxSubscriptionsPolygon = await getAllResultsFromQuery(
         getDigitalaxSubscriptionsByOwner,
         'digitalaxSubscriptions',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
 
       // get digitalax subscription 1155s on polygon
-      const digitalaxSubscriptionCollectorsPolygon
-        = await getAllResultsFromQuery(
-          getDigitalaxSubscriptionCollectorsByOwner,
-          'digitalaxSubscriptionCollectors',
-          POLYGON_CHAINID,
-          owner
-        )
-      const digitalaxSubscription1155sPolygon = digitalaxSubscriptionCollectorsPolygon && digitalaxSubscriptionCollectorsPolygon.length > 0 
-        ? digitalaxSubscriptionCollectorsPolygon[0].childrenOwned.map(item => item.token)
-        : []
+      const digitalaxSubscriptionCollectorsPolygon = await getAllResultsFromQuery(
+        getDigitalaxSubscriptionCollectorsByOwner,
+        'digitalaxSubscriptionCollectors',
+        POLYGON_CHAINID,
+        owner,
+      )
+      const digitalaxSubscription1155sPolygon =
+        digitalaxSubscriptionCollectorsPolygon && digitalaxSubscriptionCollectorsPolygon.length > 0
+          ? digitalaxSubscriptionCollectorsPolygon[0].childrenOwned.map((item) => item.token)
+          : []
 
       // get genesis nfts on mainnet
       const digitalaxGenesisNFTsMainnet = await getAllResultsFromQuery(
         getDigitalaxGenesisNFTsByOwner,
         'digitalaxGenesisNFTs',
         MAINNET_CHAINID,
-        owner
+        owner,
       )
 
       // get staked genesis nfts on mainnet
-      const digitalaxGenesisStakedTokensMainnet
-        = await getAllResultsFromQuery(
-          getDigitalaxGenesisStakedTokensByOwner,
-          'digitalaxGenesisStakedTokens',
-          MAINNET_CHAINID,
-          owner
+      const digitalaxGenesisStakedTokensMainnet = await getAllResultsFromQuery(
+        getDigitalaxGenesisStakedTokensByOwner,
+        'digitalaxGenesisStakedTokens',
+        MAINNET_CHAINID,
+        owner,
       )
-      const stakedGenesisTokenIDsMainnet = digitalaxGenesisStakedTokensMainnet.map(item => item.id)
-      
-      const digitalaxStakedGenesisNFTsMainnet = stakedGenesisTokenIDsMainnet && stakedGenesisTokenIDsMainnet.length > 0
-        ? await getAllResultsFromQuery(
-          getDigitalaxGenesisNFTs,
-          'digitalaxGenesisNFTs',
-          MAINNET_CHAINID,
-          stakedGenesisTokenIDsMainnet
-        )
-        : []
+      const stakedGenesisTokenIDsMainnet = digitalaxGenesisStakedTokensMainnet.map(
+        (item) => item.id,
+      )
+
+      const digitalaxStakedGenesisNFTsMainnet =
+        stakedGenesisTokenIDsMainnet && stakedGenesisTokenIDsMainnet.length > 0
+          ? await getAllResultsFromQuery(
+              getDigitalaxGenesisNFTs,
+              'digitalaxGenesisNFTs',
+              MAINNET_CHAINID,
+              stakedGenesisTokenIDsMainnet,
+            )
+          : []
 
       // get pode nftV2s on polygon
       const podeNFTv2sPolygon = await getAllResultsFromQuery(
         getPodeNFTV2sByOwner,
         'podeNFTv2S',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
       // get staked pode nft v2s on polygon
       const podeNFTv2StakersPolygon = await getAllResultsFromQuery(
         getPodeNFTV2StakersByStaker,
         'podeNFTv2Stakers',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
-      const podeStakedNFTsPolygon = podeNFTv2StakersPolygon && podeNFTv2StakersPolygon.length > 0 
-      ? podeNFTv2StakersPolygon[0].garments
-      : []
+      const podeStakedNFTsPolygon =
+        podeNFTv2StakersPolygon && podeNFTv2StakersPolygon.length > 0
+          ? podeNFTv2StakersPolygon[0].garments
+          : []
 
       // get digitalax 1155s (materials) on polygon
-      const { digitalaxCollectorV2: digitalaxCollectorsV2Polygon }
-        = await getDigitalaxCollectorV2ByOwner(POLYGON_CHAINID, owner)
-      const digitalaxV21155sPolygon = digitalaxCollectorsV2Polygon 
-        ? digitalaxCollectorsV2Polygon.childrenOwned.map(item => item.token)
+      const { digitalaxCollectorV2: digitalaxCollectorsV2Polygon } =
+        await getDigitalaxCollectorV2ByOwner(POLYGON_CHAINID, owner)
+      const digitalaxV21155sPolygon = digitalaxCollectorsV2Polygon
+        ? digitalaxCollectorsV2Polygon.childrenOwned.map((item) => item.token)
         : []
-      
+
       // get gdn membership tokens on polygon
       const gdnMembershipNFTsPolygon = await getAllResultsFromQuery(
         getGDNMembershipNFTsByOwner,
         'gdnmembershipNFTs',
         POLYGON_CHAINID,
-        owner
+        owner,
       )
 
       // get look nfts on mainnet
@@ -313,21 +344,70 @@ const DigitalChangingRoom = props => {
         getDigitalaxLookNFTsByOwner,
         'digitalaxLookNFTs',
         MAINNET_CHAINID,
-        owner
+        owner,
       )
-      digitalaxLookNFTsMainnet.map(item => {
+      digitalaxLookNFTsMainnet.map((item) => {
         const json = atob(item.tokenUri.substring(29))
         const result = JSON.parse(json)
       })
 
       // get look golden tickets on mainnet
-      const digitalaxLookGoldenTicketsPolygon
-        = await getAllResultsFromQuery(
-          getDigitalaxLookGoldenTicketsByOwner,
-          'digitalaxLookGoldenTickets',
-          POLYGON_CHAINID,
-          owner
+      const digitalaxLookGoldenTicketsPolygon = await getAllResultsFromQuery(
+        getDigitalaxLookGoldenTicketsByOwner,
+        'digitalaxLookGoldenTickets',
+        POLYGON_CHAINID,
+        owner,
       )
+
+      const network = getEnabledNetworkByChainId(chainId)
+      const { tokens: secondaryMarketplaceNfts } = await getAllNFTsByOwner(
+        owner,
+        config.EIP721_URL[network.alias],
+      )
+      const { digitalaxMarketplaceV2Offers: v2Offers } = await getDigitalaxMarketplaceV2Offers(
+        chainId,
+      )
+
+      const { orders } = await getSecondaryOrderByOwner(config.NIX_URL[network.alias], owner)
+
+      const nftData = []
+      const allUsers = await digitalaxApi.getAllUsersName()
+
+      for (let i = 0; i < secondaryMarketplaceNfts.length; i += 1) {
+        const nft = secondaryMarketplaceNfts[i]
+        console.log({ nft })
+        const { token } = await getNFTById(
+          `${nft?.contract?.id}_${nft?.tokenID}`,
+          config.EIP721_URL[network.alias],
+        )
+        const { orders } = await getSecondaryOrderByContractTokenAndBuyorsell(
+          config.NIX_URL[network.alias],
+          nft?.contract?.id,
+          [nft?.tokenID],
+          'Buy',
+        )
+        const attributes = (JSON.parse(token?.metadata) || {}).attributes
+        const designer = attributes.find((attribute) => attribute.trait_type === 'Designer')?.value
+        const designerData =
+          (await digitalaxApi.getDesignerById(designer === 'Kodomodachi' ? 'Mirth' : designer)) ||
+          []
+        const seller = allUsers.find((user) => user.wallet?.toLowerCase() === token?.owner.id)
+
+        nftData.push({
+          ...nft,
+          nftData: {
+            ...token,
+            designer: {
+              name: designerData[0]?.designerId,
+              image: designerData[0]?.image_url,
+            },
+          },
+          user: seller ?? {},
+          orders: filterOrders(orders),
+        })
+      }
+
+      setOwnedOrders(filterOrders(orders))
 
       // console.log('digitalaxNFTsMainnet: ', digitalaxNFTsMainnet)
       // console.log('digitalaxNFTsPolygon: ', digitalaxNFTsPolygon)
@@ -342,19 +422,51 @@ const DigitalChangingRoom = props => {
 
       const fetchedNFTs = {}
 
+      fetchedNFTs[SECONDARY_MARKETPLACE_NFT] = [
+        ...secondaryMarketplaceNfts
+          .filter((token) =>
+            v2Offers.find(offer =>
+              offer.garmentCollection?.garments?.find(
+                (garment) => garment.owner === token.owner.id && garment.id === token.tokenID,
+              ),
+            ),
+          )
+          .map((item) => {
+            return { ...item, type: 'digitalaxSecondaryMarketplace' }
+          }),
+      ]
+
       fetchedNFTs[DIGITAL_CHANGING_ROOM] = [
-        ...digitalaxNFTsMainnet.map(item => { return {...item, type: 'digitalaxNFTsMainnet'} }),
-        ...digitalaxNFTsPolygon.map(item => { return {...item, type: 'digitalaxNFTsPolygon'} }),
-        ...digitalaxNFTV2sPolygonNonDrip.map(item => { return {...item, type: 'digitalaxNFTV2sPolygon'} }),  
-        ...digitalaxNFTV2sPolygonDrip.map(item => { return {...item, type: 'digitalaxDripNFTV2sPolygon'} }),
-        ...weirdItems.map(item => { return {...item, type: 'digitalaxNFTV2sPolygon'} }),  
-        ...digitalaxV21155sPolygon.map(item => { return {...item, type: 'digitalaxV21155sPolygon'} }),
-        ...digitalaxStakedNFTsMainnet.map(item => { return {...item, type: 'digitalaxStakedNFTsMainnet'} }),
+        ...digitalaxNFTsMainnet.map((item) => {
+          return { ...item, type: 'digitalaxNFTsMainnet' }
+        }),
+        ...digitalaxNFTsPolygon.map((item) => {
+          return { ...item, type: 'digitalaxNFTsPolygon' }
+        }),
+        ...digitalaxNFTV2sPolygonNonDrip.map((item) => {
+          return { ...item, type: 'digitalaxNFTV2sPolygon' }
+        }),
+        ...digitalaxNFTV2sPolygonDrip.map((item) => {
+          return { ...item, type: 'digitalaxDripNFTV2sPolygon' }
+        }),
+        ...weirdItems.map((item) => {
+          return { ...item, type: 'digitalaxNFTV2sPolygon' }
+        }),
+        ...digitalaxV21155sPolygon.map((item) => {
+          return { ...item, type: 'digitalaxV21155sPolygon' }
+        }),
+        ...digitalaxStakedNFTsMainnet.map((item) => {
+          return { ...item, type: 'digitalaxStakedNFTsMainnet' }
+        }),
       ]
 
       fetchedNFTs[DIGIFIZZY_BUNDLES] = [
-        ...digitalaxSubscriptionsPolygon.map(item => { return {...item, type: 'digitalaxSubscriptionsPolygon'} }),
-        ...digitalaxSubscription1155sPolygon.map(item => { return {...item, type: 'digitalaxSubscription1155sPolygon'} }),
+        ...digitalaxSubscriptionsPolygon.map((item) => {
+          return { ...item, type: 'digitalaxSubscriptionsPolygon' }
+        }),
+        ...digitalaxSubscription1155sPolygon.map((item) => {
+          return { ...item, type: 'digitalaxSubscription1155sPolygon' }
+        }),
       ]
 
       // fetchedNFTs[DRIP_IDL] = [
@@ -362,27 +474,43 @@ const DigitalChangingRoom = props => {
       // ]
 
       fetchedNFTs[GENESIS_MONA_NFT] = [
-        ...digitalaxGenesisNFTsMainnet.map(item => { return {...item, type: 'digitalaxGenesisNFTsMainnet'} }),
-        ...digitalaxStakedGenesisNFTsMainnet.map(item => { return {...item, type: 'digitalaxStakedGenesisNFTsMainnet'} })
+        ...digitalaxGenesisNFTsMainnet.map((item) => {
+          return { ...item, type: 'digitalaxGenesisNFTsMainnet' }
+        }),
+        ...digitalaxStakedGenesisNFTsMainnet.map((item) => {
+          return { ...item, type: 'digitalaxStakedGenesisNFTsMainnet' }
+        }),
       ]
 
       fetchedNFTs[LOOK_FASHION_LOOT] = [
-        ...digitalaxLookNFTsMainnet.map(item => { 
+        ...digitalaxLookNFTsMainnet.map((item) => {
           return {
-            ...item, 
+            ...item,
             type: 'digitalaxLookNFTsMainnet',
-            image: generateLookImage(item)
+            image: generateLookImage(item),
           }
         }),
-        ...digitalaxLookGoldenTicketsPolygon.map(item => { return {...item, type: 'digitalaxLookGoldenTicketsPolygon'} })
+        ...digitalaxLookGoldenTicketsPolygon.map((item) => {
+          return { ...item, type: 'digitalaxLookGoldenTicketsPolygon' }
+        }),
       ]
 
       fetchedNFTs[PODE] = [
-        ...podeNFTv2sPolygon.map(item => { return {...item, type: 'podeNFTv2sPolygon'} }),
-        ...podeStakedNFTsPolygon.map(item => { return {...item, type: 'podeStakedNFTsPolygon'} })
+        ...podeNFTv2sPolygon.map((item) => {
+          return { ...item, type: 'podeNFTv2sPolygon' }
+        }),
+        ...podeStakedNFTsPolygon.map((item) => {
+          return { ...item, type: 'podeStakedNFTsPolygon' }
+        }),
       ]
 
-      fetchedNFTs[GDN_MEMBERSHIP_NFT] = [...gdnMembershipNFTsPolygon.map(item => { return {...item, type: 'gdnMembershipNFTsPolygon'} })]
+      fetchedNFTs[GDN_MEMBERSHIP_NFT] = [
+        ...gdnMembershipNFTsPolygon.map((item) => {
+          return { ...item, type: 'gdnMembershipNFTsPolygon' }
+        }),
+      ]
+
+      fetchedNFTs[PATRON_REALM_NFT] = [...patronNFTS.map(item => { return {...item, type: 'patronRealmNFTsPolygon'} })]
 
       setOwnedNFTs(fetchedNFTs)
     }
@@ -394,29 +522,34 @@ const DigitalChangingRoom = props => {
     if (currentCategory <= 0) return
     setCurrentCategory(currentCategory - 1)
   }
-  
+
   const onClickNext = () => {
     if (currentCategory >= categories.length - 1) return
     setCurrentCategory(currentCategory + 1)
   }
 
-  const onClickViewFashion = async item => {
+  const onClickViewFashion = async (item) => {
     const { id: fashionId, type } = item
     // if the NFT is digitalx NFT V2 on Polygon network
     if (type == 'digitalaxNFTV2sPolygon' || type == 'digitalaxStakedNFTsPolygon') {
-
       // Get Collection id by garment id
-      const { digitalaxGarmentV2Collections } = await getCollectionV2ByGarmentId(POLYGON_CHAINID, fashionId)
+      const { digitalaxGarmentV2Collections } = await getCollectionV2ByGarmentId(
+        POLYGON_CHAINID,
+        fashionId,
+      )
 
       // if collection id is invalid, it's not able to show as product
       if (!digitalaxGarmentV2Collections || digitalaxGarmentV2Collections.length <= 0) {
         console.log('not on marketplace')
-        return  
+        return
       }
 
       // check marketplace if the collection id exists
-      const { digitalaxMarketplaceV2Offers } = await getDigitalaxMarketplaceV2Offer(POLYGON_CHAINID, digitalaxGarmentV2Collections[0].id)
-      
+      const { digitalaxMarketplaceV2Offers } = await getDigitalaxMarketplaceV2Offer(
+        POLYGON_CHAINID,
+        digitalaxGarmentV2Collections[0].id,
+      )
+
       // if it doesn't exist, it's not able to show as product.
       if (!digitalaxMarketplaceV2Offers || digitalaxMarketplaceV2Offers.length <= 0) {
         console.log('not on marketplace')
@@ -424,21 +557,35 @@ const DigitalChangingRoom = props => {
       }
 
       // Yay! It's good to go. it can be shown on product page.
-      window.open(`https://fashion.digitalax.xyz//product/${digitalaxGarmentV2Collections[0].id}/${getRarityId(digitalaxGarmentV2Collections[0].rarity)}/0`, '_self')
+      window.open(
+        `/product/${digitalaxGarmentV2Collections[0].id}/${getRarityId(
+          digitalaxGarmentV2Collections[0].rarity,
+        )}/0`,
+        '_self',
+      )
     } else if (type == 'digitalaxDripNFTV2sPolygon') {
       // console.log('item: ', item.collectionId)
       const collectionNameObj = DRIP_COLLECTION_NAMES[item.collectionId]
       // console.log('collectionNameObj: ', collectionNameObj)
       if (collectionNameObj) {
         const { group, name } = collectionNameObj
-        window.open(`https://drip.digitalax.xyz/product/${group.toLowerCase()}-${item.collectionId}-${name.replaceAll(' ', '-').toLowerCase()}`, '_new')
+        window.open(
+          `https://drip.digitalax.xyz/product/${group.toLowerCase()}-${item.collectionId}-${name
+            .replaceAll(' ', '-')
+            .toLowerCase()}`,
+          '_new',
+        )
       }
-      
-      
     } else {
       console.log('not on marketplace')
       console.log('fashionId: ', fashionId)
     }
+  }
+
+  const getOrderForNFT = (nft) => {
+    return ownedOrders?.find((order) => {
+      return order.token.id === nft.contract.id && order.tokenIds[0] === nft.tokenID
+    })
   }
 
   // console.log('ownedNFTs: ', ownedNFTs)
@@ -447,20 +594,37 @@ const DigitalChangingRoom = props => {
     <div className={[styles.wrapper, className].join(' ')}>
       <div className={styles.header}>
         <button className={styles.leftArrow} onClick={onClickPrev}>
-          <img src='/images/user-profile/arrow-left.png' />
+          <img src="/images/user-profile/arrow-left.png" />
         </button>
         <div className={styles.label}>{categories[currentCategory]}</div>
         <button className={styles.rightArrow} onClick={onClickNext}>
-          <img src='/images/user-profile/arrow-right.png' />
+          <img src="/images/user-profile/arrow-right.png" />
         </button>
       </div>
       <div className={styles.content}>
-        {
-          ownedNFTs[categories[currentCategory]] && ownedNFTs[categories[currentCategory]].map(
-          (item, index) => {
-            // console.log('item: ', item)
+        {ownedNFTs[categories[currentCategory]] &&
+          ownedNFTs[categories[currentCategory]].map((item, index) => {
+            if (currentCategory === 6) {
+              return (
+                <SecondaryInfoCard
+                  product={{
+                    ...item,
+                    token: {
+                      id: item.contract.id,
+                    },
+                    tokenId: item.tokenID,
+                  }}
+                  offers={item.orders}
+                  user={item.user}
+                  nftData={item.nftData}
+                  order={getOrderForNFT(item)}
+                  key={item.id}
+                  showCollectionName
+                />
+              )
+            }
             return (
-              <FashionItem 
+              <FashionItem
                 className={styles.nftItem}
                 key={`${item.type}_${item.id}`}
                 animation={item.animation}
@@ -475,8 +639,7 @@ const DigitalChangingRoom = props => {
                 onClickViewFashion={() => onClickViewFashion(item)}
               />
             )
-          })
-        }
+          })}
       </div>
     </div>
   )

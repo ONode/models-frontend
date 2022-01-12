@@ -49,5 +49,15 @@
     "goerli": "0xc9c3704a65fE2D4f1F94A02480b25DbFA5764332",
     "mumbai": "0x1Bc6D640710759Be37E5DCD1b23B322250353751",
     "matic": "0x7B2a989c4D1AD1B79a84CE2EB79dA5D8d9C2b7a7"
+  },
+  "EIP721_URL": {
+    "mainnet": "https://api.thegraph.com/subgraphs/name/digitalax/eip721dlta",
+    "matic": "https://api.thegraph.com/subgraphs/name/digitalax/eip721dlta",
+    "mumbai": "https://api.thegraph.com/subgraphs/name/camerons29/eip721-mumbai"
+  },
+  "NIX_URL": {
+    "mainnet": "https://api.thegraph.com/subgraphs/name/digitalax/nix-matic",
+    "matic": "https://api.thegraph.com/subgraphs/name/digitalax/nix-matic",
+    "mumbai": "https://api.thegraph.com/subgraphs/name/digitalax/nix-mumbai"
   }
 }

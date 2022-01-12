@@ -200,6 +200,16 @@ class EspaApiService {
     }
   }
 
+  async getDesignerById(id) {
+    try {
+      const data = await get('/get-designer-by-id', { designerId: id });
+
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async saveDressedInfo({
     wallet,
     outfit,

@@ -1,14 +1,14 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import cn from 'classnames';
-import ReactImageMagnify from 'react-image-magnify';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import cn from 'classnames'
+import ReactImageMagnify from 'react-image-magnify'
 import {
   createGifURL,
   create2KURL,
   createPreviewURL,
-} from '@services/imgix.service';
-import styles from './styles.module.scss';
+} from '@services/imgix.service'
+import styles from './styles.module.scss'
 
 const ViewImages = ({
   className,
@@ -16,20 +16,20 @@ const ViewImages = ({
   clothesName,
   clothesId,
 }) => {
-  const DEFAULT_LARGE_IMAGE = clothesPhotos.find(({ isMain }) => isMain);
-  const [largeImage, setLargeImage] = useState(DEFAULT_LARGE_IMAGE);
-  const [isShowGif, setIsShowGif] = useState(DEFAULT_LARGE_IMAGE ? DEFAULT_LARGE_IMAGE.isGif : false);
+  const DEFAULT_LARGE_IMAGE = clothesPhotos.find(({ isMain }) => isMain)
+  const [largeImage, setLargeImage] = useState(DEFAULT_LARGE_IMAGE)
+  const [isShowGif, setIsShowGif] = useState(DEFAULT_LARGE_IMAGE ? DEFAULT_LARGE_IMAGE.isGif : false)
 
   const handleClick = (item, index) => {
-    setLargeImage(clothesPhotos[index]);
-    setIsShowGif(!!item.isGif);
-  };
+    setLargeImage(clothesPhotos[index])
+    setIsShowGif(!!item.isGif)
+  }
 
   useEffect(() => {
-    const main = clothesPhotos.find(({ isMain }) => isMain);
-    setLargeImage(main);
-    setIsShowGif(main ? main.isGif : false);
-  }, [clothesPhotos]);
+    const main = clothesPhotos.find(({ isMain }) => isMain)
+    setLargeImage(main)
+    setIsShowGif(main ? main.isGif : false)
+  }, [clothesPhotos])
 
   if (parseInt(clothesId, 10) >= 20 && parseInt(clothesId, 10) <= 28) {
     return (
@@ -40,7 +40,7 @@ const ViewImages = ({
           </video>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -113,21 +113,21 @@ const ViewImages = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 ViewImages.propTypes = {
   className: PropTypes.string,
   clothesPhotos: PropTypes.array,
   clothesName: PropTypes.string,
   clothesId: PropTypes.string,
-};
+}
 
 ViewImages.defaultProps = {
   className: '',
   clothesPhotos: [],
   clothesName: '',
   clothesId: '',
-};
+}
 
-export default ViewImages;
+export default ViewImages

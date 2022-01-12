@@ -5,7 +5,6 @@ import userActions from '@actions/user.actions'
 import modelActions from '@actions/model.actions'
 import modelPageActions from '@actions/model.page.actions'
 import garmentActions from '@actions/garment.actions'
-import garmentPageActions from '@actions/garment.page.actions'
 import globalReducer from '@reducers/global.reducer'
 import { isMetamaskInstalled } from '@services/metamask.service'
 import {
@@ -74,7 +73,6 @@ class GlobalActions extends BaseActions {
         }
 
         dispatch(garmentActions.clear())
-        dispatch(garmentPageActions.clear())
         dispatch(modelPageActions.clear())
         dispatch(modelActions.clear())
 

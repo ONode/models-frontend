@@ -1,79 +1,79 @@
-import React, { useRef } from 'react';
-import { Paper } from '@material-ui/core';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import styles from './styles.module.scss';
+import React, { useRef } from 'react'
+import { Paper } from '@material-ui/core'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+import styles from './styles.module.scss'
 
 const patternCircle = (props) => {
-  const { item, index, direction = 'Right', secondPart } = props;
-  const curImage = useRef(null);
-  const imgViewer = useRef(null);
-  const description = useRef(null);
-  const downloadImage = useRef(null);
-  const mintUrl = useRef(null);
+  const { item, index, direction = 'Right', secondPart } = props
+  const curImage = useRef(null)
+  const imgViewer = useRef(null)
+  const description = useRef(null)
+  const downloadImage = useRef(null)
+  const mintUrl = useRef(null)
 
   const hovered = (isViewer, e) => {
     if (isViewer) {
-      if (imgViewer.current.classList.value.search('fadeIn' + direction) === -1) return;
-      imgViewer.current.classList.add('hover');
+      if (imgViewer.current.classList.value.search('fadeIn' + direction) === -1) return
+      imgViewer.current.classList.add('hover')
     }
-    curImage.current.style.backgroundImage = `url(${item.thumbnail ? item.thumbnail : item.image})`;
-    imgViewer.current.classList.remove('fadeOut' + direction);
-    imgViewer.current.classList.add('fadeIn' + direction);
-    const nameItem = item.attributes.find((item) => item.type === 'Name of Item');
-    let descriptionInnerHTML = '';
+    curImage.current.style.backgroundImage = `url(${item.thumbnail ? item.thumbnail : item.image})`
+    imgViewer.current.classList.remove('fadeOut' + direction)
+    imgViewer.current.classList.add('fadeIn' + direction)
+    const nameItem = item.attributes.find((item) => item.type === 'Name of Item')
+    let descriptionInnerHTML = ''
     if (nameItem) {
-      descriptionInnerHTML = nameItem.value + '<br />';
+      descriptionInnerHTML = nameItem.value + '<br />'
     }
-    descriptionInnerHTML += item.description;
-    description.current.innerHTML = descriptionInnerHTML;
-    downloadImage.current.src = item.image;
-    mintUrl.current.href = `https://opensea.io/assets/matic/0x567c7b3364ba2903a80ecbad6c54ba8c0e1a069e/${item.id}`;
-  };
+    descriptionInnerHTML += item.description
+    description.current.innerHTML = descriptionInnerHTML
+    downloadImage.current.src = item.image
+    mintUrl.current.href = `https://opensea.io/assets/matic/0x567c7b3364ba2903a80ecbad6c54ba8c0e1a069e/${item.id}`
+  }
 
   const hleave = (when, e) => {
     if (when === 1) {
       setTimeout(() => {
         if (imgViewer.current.classList.value.search('hover') === -1) {
-          imgViewer.current.classList.remove('fadeIn' + direction);
-          imgViewer.current.classList.add('fadeOut' + direction);
-          imgViewer.current.classList.remove('hover');
+          imgViewer.current.classList.remove('fadeIn' + direction)
+          imgViewer.current.classList.add('fadeOut' + direction)
+          imgViewer.current.classList.remove('hover')
         }
-      }, 100);
+      }, 100)
     } else if (when === 2) {
       if (curImage.current !== null) {
-        imgViewer.current.classList.remove('fadeIn' + direction);
-        imgViewer.current.classList.add('fadeOut' + direction);
-        imgViewer.current.classList.remove('hover');
+        imgViewer.current.classList.remove('fadeIn' + direction)
+        imgViewer.current.classList.add('fadeOut' + direction)
+        imgViewer.current.classList.remove('hover')
       }
     }
-  };
+  }
 
-  let marginLeft = 0;
-  let marginTop = 0;
+  let marginLeft = 0
+  let marginTop = 0
 
   if (!secondPart) {
-    marginLeft = (index % 3) * 30;
+    marginLeft = (index % 3) * 30
 
     if (index === 2) {
-      marginLeft = 65;
-      marginTop = -23;
+      marginLeft = 65
+      marginTop = -23
     } else if (index === 5) {
-      marginLeft = -20;
-      marginTop = -23;
+      marginLeft = -20
+      marginTop = -23
     }
   }
 
   const handleDownload = async () => {
-    const image = await fetch(downloadImage.current.src);
-    const imageBlog = await image.blob();
-    const imageURL = URL.createObjectURL(imageBlog);
-    const link = document.createElement('a');
-    link.href = imageURL;
-    link.download = 'download';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    const image = await fetch(downloadImage.current.src)
+    const imageBlog = await image.blob()
+    const imageURL = URL.createObjectURL(imageBlog)
+    const link = document.createElement('a')
+    link.href = imageURL
+    link.download = 'download'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   return (
     <div
@@ -123,7 +123,7 @@ const patternCircle = (props) => {
         </div>
       </Paper>
     </div>
-  );
-};
+  )
+}
 
-export default patternCircle;
+export default patternCircle

@@ -1,3 +1,11 @@
+@mixin scale() {
+  transform: scale(1.05);
+}
+
+@mixin transition() {
+  transition: all 0.3s ease;
+}
+
 @mixin reset-button() {
   background-color: transparent;
   outline: 0;

@@ -4,7 +4,6 @@ import global from './global.reducer'
 import garment from './garment.reducer'
 import model from './model.reducer'
 import modelPage from './model.page.reducer'
-import garmentPage from './garment.page.reducer'
 import tokenURIInfo from './token.uri.info.reducer'
 
 export default {
@@ -14,6 +13,5 @@ export default {
   garment: garment.reducer,
   model: model.reducer,
   modelPage: modelPage.reducer,
-  garmentPage: garmentPage.reducer,
   tokenURIInfo: tokenURIInfo.reducer
 }

@@ -25,6 +25,13 @@ export const getRarity = (rarity) => {
   }
 };
 
+
+export const filterOrders = (orders) => {
+  return orders.filter(
+    (order) => order?.expiry === '0' || parseInt(order?.expiry) >= Date.now() / 1000,
+  );
+};
+
 export const generateLookImage = (item) => {
   const { id, name, background, color, texture, pattern, shape, flare, form, line, element } = item;
 

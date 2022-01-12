@@ -1,6 +1,6 @@
-import { createModule } from 'redux-modules';
-import cloneDeep from 'lodash.clonedeep';
-import { Map } from 'immutable';
+import { createModule } from 'redux-modules'
+import cloneDeep from 'lodash.clonedeep'
+import { Map } from 'immutable'
 
 const DEFAULT_FIELDS = Map({
   isShowModalConnectMetamask: false,
@@ -11,8 +11,8 @@ const DEFAULT_FIELDS = Map({
   isShowNotificationConnectMetamask: false,
   isShowBuyNow: false,
   isShowPreviewMaterial: false,
-  params: null,
-});
+  params: null
+})
 
 
 export default createModule({
@@ -21,9 +21,9 @@ export default createModule({
   transformations: {
     setValue: {
       reducer: (state, { payload }) => {
-        state = state.set(payload.field, payload.value);
-        return state;
-      },
-    },
-  },
-});
+        state = state.set(payload.field, payload.value)
+        return state
+      }
+    }
+  }
+})
