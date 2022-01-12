@@ -3,7 +3,7 @@
 }
 
 .arrowClass {
-  color: white !important;
+  color: #E6BF01 !important;
 }
 
 .mintingDiv {
@@ -47,4 +47,27 @@
       padding:0
     }
   }
+}
+
+.selectClass {
+  background: white !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.selectClassMobile {
+  background: white !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  height: 35px;
+}
+
+.selectLabel {
+  
+}
+
+.selectLabelMobile {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
 }
