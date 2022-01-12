@@ -102,7 +102,7 @@ const AvatarLibraries = (props) => {
         </>
       ) : (
         <div className={styles.container}>
-          <Grid container item xs={12} spacing={2} justifyContent="center" >
+          <Grid container item xs={12} spacing={2}  >
             {
               avatarElementals.map(item => {
                 return (
