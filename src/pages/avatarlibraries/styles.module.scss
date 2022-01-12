@@ -7,12 +7,20 @@
   margin-top: 68px;
   width: 100%;
 
-  h1 {
-    font-family: TypoGraphica;
-    margin-bottom: 20px;
-    font-size: 12.5vw;
-    line-height: 100%;
-    text-align: center;
+  .content {
+    h1 {
+      font-family: TypoGraphica;
+      margin-bottom: 20px;
+      font-size: 12.5vw;
+      line-height: 100%;
+      text-align: center;
+    }  
+  }
+  
+  .container {
+    padding: 2%;
+    display: flex;
+    justify-content: center;
   }
 }
 

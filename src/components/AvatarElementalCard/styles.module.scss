@@ -1,0 +1,61 @@
+.cardWrapper {
+  position: relative;
+
+  .imageWrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .name {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 5%;
+
+    font-family: TypoGraphica;
+    font-size: 30px;
+    line-height: 41px;
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+  }
+
+  .details {
+    display: none;
+    
+    padding-left: 5%;
+    padding-top: 5%;
+
+    .attribute {
+      width: 50%;
+      font-family: Bebas Neue;
+      font-size: 1.2vw;
+      line-height: 125%;
+      display: flex;
+      align-items: center;
+
+      color: #FFFFFF;
+    }
+
+    .download {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &:hover {
+    .details {
+      display: block;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: 30%;
+      background: rgba(0, 0, 0, 0.38);
+    }
+  }
+}

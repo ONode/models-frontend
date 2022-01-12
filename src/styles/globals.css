@@ -191,10 +191,7 @@ button:focus {
 .questionMark:hover + .hint {
   display: block;
 }
-.openimg {
-  width: 948px;
-  top: 0;
-}
+
 .productimg {
   width: 47%;
 }
@@ -202,29 +199,10 @@ button:focus {
   height: 100%;
 }
 /* fractional page */
-.fractionalimg {
-  background-image: url('/images/fractional_bg.png');
-  background-repeat: repeat-y;
-  background-position-x: right;
-}
-.fractionaltext {
-  width: 66.6666%;
-  margin-left: 4rem;
-}
-.garmenttext {
-  width: 66.666%;
-  margin-left: 16rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
 .ownershiptext {
   width: 66.666%;
   margin-left: 4rem;
 }
-.subproimg {
-  width: 29%;
-}
-
 
 .minttext{
   font-family: Inter;
@@ -233,58 +211,7 @@ button:focus {
   line-height:1.5rem;
   margin-top:2.5rem;
 }
-.mintform{
-  width:50%;
-  margin-bottom:5rem;
-  margin-top:3rem;
-  display: flex;
-  flex-direction: column;
-}
-.mintinputdiv{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-}
-.onchainimg{
-  width:500px;
-  margin-left:40px;
-}
-.opensourceimg{
-  width: 900px;
-  margin-left:50px;
-}
-.llssimg{
-  width:250px;
-  margin-left:40px;
-}
-.nftimg{
-  width:250px;
-  transform:rotate(10deg);
-  margin-left:60px;
-}
-.librariesimg{
-  width:500px;
-  margin-left:150px;
-}
-.materialimg{
-  transform:rotate(4deg);
-  margin-left:2.5rem;
-  margin-right:2.5rem;
-}
-.entertextimg{
-  width:1000px;
-}
-.arrowimg{
-  width:300px
-}
-.opengatearrow{
-  width:110px;
-  height:110px;
-}
-.listdot:before{
-  content: ' \2022';
-  margin-right:10px;
-}
+
 @media (max-width: 600px) {
   .fgo_text_1 {
     /* display: none; */
@@ -339,35 +266,7 @@ button:focus {
     font-weight: 900;
     line-height: 36.31px;
   }
-  .digitaltext{
-    font-size: 40px;
-    font-weight: 900;
-    line-height: 48.41px;
-    margin-bottom: 83px;
-  }
-  .entertextimg{
-    width:284px;
-    height: 81px;
-    align-self: flex-start;
-    margin-left:18px;
-  }
-  .arrowimg{
-    width: 100px;
-  }
-  .indexparagraph2{
-    padding:66px 29px 60px 21px;
-    margin-bottom: 288px;
-  }
-  .openimg {
-    width: 231px;
-    height: 69px;
-    top: 0;
-  } 
-  .entertext {
-    font-weight: 300;
-    font-size: 20px;
-    padding-top: 0;
-  }
+
   .productimg {
     flex: 1;
     width: 100%;
@@ -377,93 +276,16 @@ button:focus {
   .enterimg {
     height: auto;
   }
-  .fractionaltext {
-    margin: auto;
-    margin-left: 2rem;
-    margin-top: 54px;
-    width: 90%;
-  }
-  .garmenttext {
-    float: right;
-    width: 90%;
-    right: 0;
-  }
+
   .ownershiptext {
     width: 81%;
     margin-left: 2rem;
   }
-  .fractionalcontainer{
-    margin-bottom: 40px;
-  }
-  .fractionaldiv {
-    padding-left: 27px;
-    padding-right: 19px;
-    margin-right: 31px;
-    position: relative;
-    z-index: 10;
-  }
-  .fractionalborder {
-    position: absolute;
-    right: 0;
-    top: -19px;
-    height: calc(100% + 38px);
-    width: 80px;
-    background-color: #db00ff;
-    z-index: -1;
-  }
-  .fractionalbody {
-    background: black;
-    padding: 28px 0;
-  }
-  .fractionalcontent {
-    text-align: center;
-    font-size: 20px;
-    line-height: 24.2px;
-    font-weight: 300;
-    padding-right: 32px;
-    color:white;
-    padding-left:0px;
-    font-family: 'inter';
-    margin-top:2.5rem;
-  }
-  .fractionalul{
-    text-align: center;
-    font-size: 20px;
-    line-height: 24.2px;
-    font-weight: 300;
-    padding-right: 32px;
-    color:white;
-    padding-left:0px;
-    font-family: 'inter';
-  }
-  .headerimages{
-    margin-bottom: 17px;
-  }
 
-  .subproimgcontainer {
-    flex-direction: column;
-    width: 323px !important;
-  }
-  .subproimg {
-    width: 100%;
-    /* height: 369px; */
-    margin-bottom: 25px;
-  }
-  .mintingheader{
+  .mintingheader {
     padding:0 12px;
   }
-  .greenbox{
-    width: 100%;
-    height: 69px;
-    background: #00F0FF;
-    margin-top:49px;
-  }
-  .violetbox{
-    width: 100%;
-    height: 69px;
-    background: #DB00FF;
-    margin-top:26px;
-  }
+
   .mintingtext{
     padding:26px 33px;
   }
@@ -474,17 +296,7 @@ button:focus {
     line-height:19px;
     /* margin-top:0; */
   }
-  .mintform{
-    width:100%;
-    margin-bottom:5rem;
-    margin-top:3rem;
-    display: flex;
-    flex-direction: column;
-    
-  }
-  .mintinputdiv{
-    width:100%;
-  }
+  
   .mobileform{
     width:100%;
     display: flex;
@@ -495,39 +307,7 @@ button:focus {
   .opensourceheader{
     padding:0 20px;
   }
-  .onchainimg{
-    width:370px;
-    margin-left:0;
-    margin-bottom:20px;
-  }
-  .opensourceimg{
-    width:370px;
-    margin-left:0;
-    margin-bottom:20px;
-  }
-  .llssimg{
-    width:375px;
-    margin-left:0;
-    margin-bottom:20px;
-  }
-  .nftimg{
-    width:250px;
-    margin-left:0;
-    margin-bottom:20px;
-    transform:rotate(10deg);
-  }
-  .librariesimg{
-    width:370px;
-    margin-bottom:20px;
-    margin-left:0;
-  }
-  .materialimg{
-    transform:rotate(4deg);
-    margin-top:10px;
-    margin-left:0;
-    margin-bottom:20px;
-    margin-right:0;
-  }
+
   .opensourcecontent{
     box-sizing: border-box;
     max-width: 375px;
