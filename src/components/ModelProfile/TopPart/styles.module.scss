@@ -275,10 +275,18 @@
     margin-left: 13vw;
     position: relative;
     min-height: 150vw;
+    width: 70%;
     z-index: 3;
 
     display: flex;
     flex-direction: row;
+
+
+    .cardWrapper {
+      border: 1px solid white;
+      width: 18vw;
+      margin-top: 3vw;
+    }
 
     .pattern1 {
       
@@ -287,6 +295,20 @@
     .pattern2 {
       margin-left: 10vw;
       margin-top: 30vw;
+
+      .cardWrapper {
+        transform-origin: 50% 50%;
+
+        &:nth-child(odd) {
+          
+          transform: rotate(10deg);
+        }
+        
+        &:nth-child(even) {
+          transform: rotate(-10deg);
+        }
+        
+      }
     }
   }
 
@@ -371,9 +393,4 @@
     }
   }
 
-  .cardWrapper {
-    border: 1px solid white;
-    width: 18vw;
-    margin-top: 3vw;
-  }
 }
