@@ -271,34 +271,30 @@
   }
 
   .patternSection {
-    margin-top: 60vw;
-    margin-left: 10vw;
+    margin-top: 40vw;
+    margin-left: 13vw;
     position: relative;
     min-height: 150vw;
     z-index: 3;
 
-    .patternWrapper3 {
-      margin-left: 10vw;
+    display: flex;
+    flex-direction: row;
 
-      &.smallPattern {
-        min-height: 90vw;
-      }
+    .pattern1 {
+      
     }
 
-    .patternWrapper4 {
-      display: flex;
-      width: 90vw;
-      flex-wrap: wrap;
-      margin-top: 15vw;
-      align-content: baseline;
+    .pattern2 {
+      margin-left: 10vw;
+      margin-top: 30vw;
     }
   }
 
   .ownershipText {
     position: absolute;
     width: 59.64vw;
-    height: 14vw;
-    left: 3.8vw;
+    height: 10vw;
+    left: 1vw;
     top: 110vw;
 
     font-family: 'Bebas Neue';
@@ -373,5 +369,11 @@
       padding-left: 20px;
       margin-bottom: 20px;
     }
+  }
+
+  .cardWrapper {
+    border: 1px solid white;
+    width: 18vw;
+    margin-top: 3vw;
   }
 }

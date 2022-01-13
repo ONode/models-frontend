@@ -50,3 +50,12 @@ export const getAllResultsFromQueryWithoutOwner = async (query, resultKey, chain
   return resultArray
 }
 
+
+export const getAttribute = (metaData, key) => {
+  if (!metaData.attributes) return ''
+  const attributeItem = metaData.attributes.find(
+    item => item.type.toLowerCase() === key.toLowerCase()
+  )
+  if (!attributeItem) return ''
+  return attributeItem.value
+}

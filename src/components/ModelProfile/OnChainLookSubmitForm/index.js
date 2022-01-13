@@ -1,92 +1,90 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
-import Button from '@components/Button';
-import { EXCLUSIVE_RARITY, COMMON_RARITY, SEMI_RARE_RARITY } from '@constants/global.constants';
-import api from '@services/api/espa/api.service';
-import { getUser } from '@helpers/user.helpers';
-import modelActions from '@actions/model.actions';
-import styles from './styles.module.scss';
-import Dropdown from '@components/Dropdown';
+import Button from '@components/Button'
+import { EXCLUSIVE_RARITY, COMMON_RARITY, SEMI_RARE_RARITY } from '@constants/global.constants'
+import api from '@services/api/espa/api.service'
+import { getUser } from '@helpers/user.helpers'
+import modelActions from '@actions/model.actions'
+import styles from './styles.module.scss'
+import Dropdown from '@components/Dropdown'
 
 const QuestionMark = (props) => {
-  const { children } = props;
+  const { children } = props
 
   return (
     <span className={styles.questionMarkWrapper}>
       <div className={styles.questionCircle}>?</div>
       <div className={styles.questionText}>{children}</div>
     </span>
-  );
-};
+  )
+}
 
-const OnChainFashionSubmitForm = (props) => {
-  const { modelId } = props;
+const OnChainLookSubmitForm = (props) => {
+  const { modelId } = props
 
-  const [itemName, setItemName] = useState('');
-  const [itemDescription, setItemDescription] = useState('');
-  const [itemEditionNo, setItemEditionNo] = useState('');
-  const [itemPrice, setItemPrice] = useState('');
-  const [itemType, setItemType] = useState('');
-  const [itemAttachFGO, setItemAttachFGO] = useState('');
-  const [sourceFileName, setSourceFileName] = useState('');
-  const [renderFileName1, setRenderFileName1] = useState('');
-  const [renderFileName2, setRenderFileName2] = useState('');
-  const [renderFileName3, setRenderFileName3] = useState('');
-  const [renderFileName4, setRenderFileName4] = useState('');
-  const [renderFileName5, setRenderFileName5] = useState('');
-  const [auctionTime, setAuctionTime] = useState(0);
-  const [type, setType] = useState([]);
-  const [rarity, setRarity] = useState(COMMON_RARITY);
+  const [itemName, setItemName] = useState('')
+  const [itemDescription, setItemDescription] = useState('')
+  const [itemEditionNo, setItemEditionNo] = useState('')
+  const [itemPrice, setItemPrice] = useState('')
+  const [itemType, setItemType] = useState('')
+  const [itemAttachFGO, setItemAttachFGO] = useState('')
+  const [sourceFileName, setSourceFileName] = useState('')
+  const [renderFileName1, setRenderFileName1] = useState('')
+  const [renderFileName2, setRenderFileName2] = useState('')
+  const [renderFileName3, setRenderFileName3] = useState('')
+  const [renderFileName4, setRenderFileName4] = useState('')
+  const [renderFileName5, setRenderFileName5] = useState('')
+  const [auctionTime, setAuctionTime] = useState(0)
+  const [rarity, setRarity] = useState(COMMON_RARITY)
+  
 
-  const types = ['IN-GAME', 'PHYSICAL', 'AR FILTER', 'DIGITAL DRESSING', 'Extra Unlockables'];
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const onChangeSourceFile = (e) => {
-    let files = e.target.files || e.dataTransfer.files;
+    let files = e.target.files || e.dataTransfer.files
     if (files.length === 0) {
-      return;
+      return
     }
-    const pathItems = e.target.value.split('\\');
-    setSourceFileName(pathItems[pathItems.length - 1]);
-  };
+    const pathItems = e.target.value.split('\\')
+    setSourceFileName(pathItems[pathItems.length - 1])
+  }
 
   const openSourceFile = () => {
-    document.getElementById('source-upload').click();
-  };
+    document.getElementById('source-upload').click()
+  }
 
   const validateOnChainForm = () => {
     if (!itemName || itemName.split(' ').findIndex((item) => item !== '') === -1) {
-      setItemName('');
-      document.getElementById('item-name').focus();
-      toast('Please input item name.');
-      return false;
+      setItemName('')
+      document.getElementById('item-name').focus()
+      toast('Please input item name.')
+      return false
     }
     if (!itemDescription || itemDescription.split(' ').findIndex((item) => item !== '') === -1) {
-      setItemDescription('');
-      document.getElementById('item-description').focus();
-      toast('Please input description.');
-      return false;
+      setItemDescription('')
+      document.getElementById('item-description').focus()
+      toast('Please input description.')
+      return false
     }
     if (!itemEditionNo || itemEditionNo.split(' ').findIndex((item) => item !== '') === -1) {
-      setItemEditionNo('');
-      document.getElementById('item-edition-no').focus();
-      toast('Please input edition no.');
-      return false;
+      setItemEditionNo('')
+      document.getElementById('item-edition-no').focus()
+      toast('Please input edition no.')
+      return false
     }
     if (!itemPrice || itemPrice.split(' ').findIndex((item) => item !== '') === -1) {
-      setItemPrice('');
-      document.getElementById('item-price').focus();
-      toast('Please input price(s).');
-      return false;
+      setItemPrice('')
+      document.getElementById('item-price').focus()
+      toast('Please input price(s).')
+      return false
     }
     if (!itemType || itemType.split(' ').findIndex((item) => item !== '') === -1) {
-      setItemType('');
-      document.getElementById('item-type').focus();
-      toast('Please input type.');
-      return false;
+      setItemType('')
+      document.getElementById('item-type').focus()
+      toast('Please input type.')
+      return false
     }
 
     // const sourceUpload = document.getElementById('source-upload')
@@ -95,96 +93,96 @@ const OnChainFashionSubmitForm = (props) => {
     //   return false
     // }
 
-    const render1Upload = document.getElementById('render1-upload');
+    const render1Upload = document.getElementById('render1-upload')
     if (render1Upload.files.length === 0) {
-      toast('Please choose at least one render file.');
-      return false;
+      toast('Please choose at least one render file.')
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
 
   const uploadFile = async (file) => {
     try {
-      dispatch(modelActions.setIsloading(true));
-      console.log('--------- file: ', file);
-      let url = await api.getPresignedGeneralUrl(file.type, file.name);
+      dispatch(modelActions.setIsloading(true))
+      console.log('--------- file: ', file)
+      let url = await api.getPresignedGeneralUrl(file.type, file.name)
       if (url) {
-        const result = await api.uploadImageToS3(url, file);
+        const result = await api.uploadImageToS3(url, file)
         if (result) {
-          const queryIndex = url.indexOf('?');
+          const queryIndex = url.indexOf('?')
           if (queryIndex >= 0) {
-            url = url.slice(0, queryIndex);
+            url = url.slice(0, queryIndex)
           }
-          dispatch(modelActions.setIsloading(false));
-          return url;
+          dispatch(modelActions.setIsloading(false))
+          return url
         }
       }
-      dispatch(modelActions.setIsloading(false));
-      return null;
+      dispatch(modelActions.setIsloading(false))
+      return null
     } catch (e) {
-      dispatch(modelActions.setIsloading(false));
-      return null;
+      dispatch(modelActions.setIsloading(false))
+      return null
     }
-  };
+  }
 
-  const resetOnFashionItem = () => {
-    setItemName('');
-    setItemDescription('');
-    setItemEditionNo('');
-    setItemPrice('');
-    setItemType('');
-    setItemAttachFGO('');
-    setSourceFileName('');
-    setRenderFileName1('');
-    setRenderFileName2('');
-    setRenderFileName3('');
-    setRenderFileName4('');
-    setRenderFileName5('');
-    setRarity(COMMON_RARITY);
+  const resetOnLookItem = () => {
+    setItemName('')
+    setItemDescription('')
+    setItemEditionNo('')
+    setItemPrice('')
+    setItemType('')
+    setItemAttachFGO('')
+    setSourceFileName('')
+    setRenderFileName1('')
+    setRenderFileName2('')
+    setRenderFileName3('')
+    setRenderFileName4('')
+    setRenderFileName5('')
+    setRarity(COMMON_RARITY)
 
-    document.getElementById(`source-upload`).value = '';
-    document.getElementById(`render1-upload`).value = '';
-    document.getElementById(`render2-upload`).value = '';
-    document.getElementById(`render3-upload`).value = '';
-    document.getElementById(`render4-upload`).value = '';
-    document.getElementById(`render5-upload`).value = '';
-  };
+    document.getElementById(`source-upload`).value = ''
+    document.getElementById(`render1-upload`).value = ''
+    document.getElementById(`render2-upload`).value = ''
+    document.getElementById(`render3-upload`).value = ''
+    document.getElementById(`render4-upload`).value = ''
+    document.getElementById(`render5-upload`).value = ''
+  }
 
   const submitForm = async () => {
-    const sourceUpload = document.getElementById('source-upload');
-    const render1Upload = document.getElementById('render1-upload');
-    const render2Upload = document.getElementById('render2-upload');
-    const render3Upload = document.getElementById('render3-upload');
-    const render4Upload = document.getElementById('render4-upload');
-    const render5Upload = document.getElementById('render5-upload');
+    const sourceUpload = document.getElementById('source-upload')
+    const render1Upload = document.getElementById('render1-upload')
+    const render2Upload = document.getElementById('render2-upload')
+    const render3Upload = document.getElementById('render3-upload')
+    const render4Upload = document.getElementById('render4-upload')
+    const render5Upload = document.getElementById('render5-upload')
 
-    const sourceUrl = await uploadFile(sourceUpload.files[0]);
+    const sourceUrl = await uploadFile(sourceUpload.files[0])
     // console.log('sourceUrl: ', sourceUrl)
 
-    const render1Url = await uploadFile(render1Upload.files[0]);
+    const render1Url = await uploadFile(render1Upload.files[0])
     // console.log('render1Url: ', render1Url)
 
-    let render2Url = '';
+    let render2Url = ''
     if (render2Upload.files.length > 0) {
-      render2Url = await uploadFile(render2Upload.files[0]);
+      render2Url = await uploadFile(render2Upload.files[0])
     }
-    let render3Url = '';
+    let render3Url = ''
     if (render3Upload.files.length > 0) {
-      render3Url = await uploadFile(render3Upload.files[0]);
+      render3Url = await uploadFile(render3Upload.files[0])
     }
-    let render4Url = '';
+    let render4Url = ''
     if (render4Upload.files.length > 0) {
-      render4Url = await uploadFile(render4Upload.files[0]);
+      render4Url = await uploadFile(render4Upload.files[0])
     }
-    let render5Url = '';
+    let render5Url = ''
     if (render5Upload.files.length > 0) {
-      render5Url = await uploadFile(render5Upload.files[0]);
+      render5Url = await uploadFile(render5Upload.files[0])
     }
 
-    const user = getUser();
+    const user = getUser()
 
-    const message = await api.registerOnChainFashionItem({
+    const message = await api.registerOnChainLookItem({
       wallet: user.wallet,
       randomString: user.randomString,
       modelId,
@@ -195,47 +193,46 @@ const OnChainFashionSubmitForm = (props) => {
       price: itemPrice,
       auctionTime: auctionTime,
       type: itemType,
-      sourceType: type,
       sourceFile: sourceUrl,
       renderFiles: [render1Url, render2Url, render3Url, render4Url, render5Url],
       attachFGO: itemAttachFGO,
-    });
+    })
 
     if (message) {
-      resetOnFashionItem();
-      toast('Successfully submitted the On-Chain fashion item.');
+      resetOnLookItem()
+      toast('Successfully submitted the On-Chain look item.')
     }
-  };
+  }
 
   const onSend = () => {
-    const completed = validateOnChainForm();
-    if (!completed) return;
-    submitForm();
-  };
+    const completed = validateOnChainForm()
+    if (!completed) return
+    submitForm()
+  }
 
   const onChangeRenderFile = (e, number) => {
-    let files = e.target.files || e.dataTransfer.files;
+    let files = e.target.files || e.dataTransfer.files
     if (files.length === 0) {
-      return;
+      return
     }
-    const pathItems = e.target.value.split('\\');
+    const pathItems = e.target.value.split('\\')
     if (number === 1) {
-      setRenderFileName1(pathItems[pathItems.length - 1]);
+      setRenderFileName1(pathItems[pathItems.length - 1])
     } else if (number === 2) {
-      setRenderFileName2(pathItems[pathItems.length - 1]);
+      setRenderFileName2(pathItems[pathItems.length - 1])
     } else if (number === 3) {
-      setRenderFileName3(pathItems[pathItems.length - 1]);
+      setRenderFileName3(pathItems[pathItems.length - 1])
     } else if (number === 4) {
-      setRenderFileName4(pathItems[pathItems.length - 1]);
+      setRenderFileName4(pathItems[pathItems.length - 1])
     } else if (number === 5) {
-      setRenderFileName5(pathItems[pathItems.length - 1]);
+      setRenderFileName5(pathItems[pathItems.length - 1])
     }
-  };
+  }
 
   const openRenderFile = (number) => {
     // console.log('obj: ', document.getElementById(`render${number}-upload`))
-    document.getElementById(`render${number}-upload`).click();
-  };
+    document.getElementById(`render${number}-upload`).click()
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -461,22 +458,7 @@ const OnChainFashionSubmitForm = (props) => {
             value={itemAttachFGO}
             onChange={(e) => setItemAttachFGO(e.target.value)}
           />
-          <div className={[styles.label, styles.marginTop22].join(' ')}>SELECT ALL THAT APPLY</div>
-
           <div className={styles.buttonRow}>
-            <Dropdown
-              multi
-              color="gold"
-              options={types}
-              value={type}
-              onChange={(option) => {
-                if (type.includes(option)) {
-                  setType([...type.filter((value) => value !== option)]);
-                } else {
-                  setType([...type, option]);
-                }
-              }}
-            />
             <Button className={styles.sendButton} onClick={onSend}>
               Send OFF
             </Button>
@@ -484,7 +466,7 @@ const OnChainFashionSubmitForm = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OnChainFashionSubmitForm;
+export default OnChainLookSubmitForm

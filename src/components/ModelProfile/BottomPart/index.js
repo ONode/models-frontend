@@ -16,7 +16,7 @@ const BottomPart = (props) => {
 
   const [selectedTarget, setSelectedTarget] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [web3FashionItems, setWeb3FashionItems] = useState([]);
+  const [web3RunwayItems, setWeb3RunwayItems] = useState([]);
   const [isShowTextAdd, setIsShowTextAdd] = useState(false);
   const [isShowImageAdd, setIsShowImageAdd] = useState(false);
   const [isShowVideoAdd, setIsShowVideoAdd] = useState(false);
@@ -54,11 +54,11 @@ const BottomPart = (props) => {
 
   useEffect(() => {
     try {
-      const web3Items = JSON.parse(modelInfo['web3FashionItems']);
-      setWeb3FashionItems(web3Items);
+      const web3Items = JSON.parse(modelInfo['web3RunwayItems']);
+      setWeb3RunwayItems(web3Items);
       handleResize();
     } catch (e) {}
-  }, [modelInfo['web3FashionItems']]);
+  }, [modelInfo['web3RunwayItems']]);
 
   const Removable = {
     name: 'removable',
@@ -134,8 +134,8 @@ const BottomPart = (props) => {
 
       const isText =
         selectedIndex.length > 0 &&
-        web3FashionItems[selectedIndex[0]] &&
-        web3FashionItems[selectedIndex[0]].type === 'text';
+        web3RunwayItems[selectedIndex[0]] &&
+        web3RunwayItems[selectedIndex[0]].type === 'text';
       const isGroup = selectedIndex.length > 1;
 
       // Add key (required)
@@ -152,15 +152,15 @@ const BottomPart = (props) => {
           <button
             className="removable-button"
             onClick={() => {
-              const newWeb3FashionItems = [];
+              const newWeb3RunwayItems = [];
 
-              web3FashionItems.forEach((item, index) => {
+              web3RunwayItems.forEach((item, index) => {
                 if (selectedIndex.findIndex((selected) => selected == index) === -1) {
-                  newWeb3FashionItems.push(item);
+                  newWeb3RunwayItems.push(item);
                 }
               });
 
-              setWeb3FashionItems(newWeb3FashionItems);
+              setWeb3RunwayItems(newWeb3RunwayItems);
               setSelectedTarget([]);
             }}
           ></button>
@@ -178,15 +178,15 @@ const BottomPart = (props) => {
             <button
               className="clone-button"
               onClick={() => {
-                const newItem = Object.assign({}, web3FashionItems[selectedIndex[0]]);
+                const newItem = Object.assign({}, web3RunwayItems[selectedIndex[0]]);
                 const regex = /translate\([^)]+\)/g;
                 newItem.style = {
                   ...newItem.style,
                   transform: newItem.style.transform.replace(regex, `translate(0, 0)`),
                 };
-                web3FashionItems.splice(selectedIndex[0] + 1, 0, newItem);
+                web3RunwayItems.splice(selectedIndex[0] + 1, 0, newItem);
 
-                setWeb3FashionItems(web3FashionItems);
+                setWeb3RunwayItems(web3RunwayItems);
                 setSelectedTarget([]);
               }}
             ></button>
@@ -244,8 +244,8 @@ const BottomPart = (props) => {
   };
 
   const updateText = (text, index) => {
-    web3FashionItems[index].value = text;
-    setWeb3FashionItems([...web3FashionItems]);
+    web3RunwayItems[index].value = text;
+    setWeb3RunwayItems([...web3RunwayItems]);
   };
 
   const uploadFile = async (file) => {
@@ -283,7 +283,7 @@ const BottomPart = (props) => {
 
     const itemStyle = document.getElementById('text-add-item').style;
 
-    web3FashionItems.push({
+    web3RunwayItems.push({
       type: 'text',
       value: addTextDraft.replace(/\r\n|\r|\n/g, '<br />'),
       style: {
@@ -293,7 +293,7 @@ const BottomPart = (props) => {
       },
     });
 
-    setWeb3FashionItems(web3FashionItems);
+    setWeb3RunwayItems(web3RunwayItems);
 
     // Reset Add Text
     setAddTextDraft('');
@@ -315,12 +315,12 @@ const BottomPart = (props) => {
           return;
         }
 
-        web3FashionItems.push({
+        web3RunwayItems.push({
           type: 'image',
           value: uploaded,
         });
 
-        setWeb3FashionItems(web3FashionItems);
+        setWeb3RunwayItems(web3RunwayItems);
 
         // Reset Add Image
         imageUploadEl.value = '';
@@ -349,12 +349,12 @@ const BottomPart = (props) => {
           return;
         }
 
-        web3FashionItems.push({
+        web3RunwayItems.push({
           type: 'video',
           value: uploaded,
         });
 
-        setWeb3FashionItems(web3FashionItems);
+        setWeb3RunwayItems(web3RunwayItems);
 
         // Reset Add Video
         videoUploadEl.value = '';
@@ -374,12 +374,12 @@ const BottomPart = (props) => {
       return;
     }
 
-    web3FashionItems.push({
+    web3RunwayItems.push({
       type: 'embeded',
       value: embededVideoFileName,
     });
 
-    setWeb3FashionItems(web3FashionItems);
+    setWeb3RunwayItems(web3RunwayItems);
 
     // Reset Add Embeded Video
     setEmbededVideoFileName('');
@@ -412,17 +412,17 @@ const BottomPart = (props) => {
   };
 
   const onClickReset = () => {
-    setWeb3FashionItems(JSON.parse(modelInfo['web3FashionItems']));
+    setWeb3RunwayItems(JSON.parse(modelInfo['web3RunwayItems']));
   };
 
   const onClickSave = () => {
-    modelInfo['web3FashionItems'] = JSON.stringify(web3FashionItems);
+    modelInfo['web3RunwayItems'] = JSON.stringify(web3RunwayItems);
     dispatch(modelActions.updateProfile({ ...modelInfo }));
   };
 
   const getMaxYValue = () => {
     const elWrapper = document.getElementById(`web3-fashion-wrapper`);
-    const yValues = web3FashionItems.map((item, index) => {
+    const yValues = web3RunwayItems.map((item, index) => {
       const el = document.getElementById(`web3-fashion-item-${index}`);
       return el && elWrapper
         ? (el.getBoundingClientRect().bottom - elWrapper.getBoundingClientRect().top) / scale
@@ -474,7 +474,7 @@ const BottomPart = (props) => {
         styles.wrapper
       ].join(' ')}
     >
-      {(isEditable || web3FashionItems.length > 0) && (
+      {(isEditable || web3RunwayItems.length > 0) && (
         <h1 className={isEditable ? '' : styles.marginBottom}>Web3 Runway 101</h1>
       )}
       {isEditable && (
@@ -611,7 +611,7 @@ const BottomPart = (props) => {
               if (translate[1] >= 0) target.style.transform = transform;
             }}
             onDragEnd={({ target, isDrag, clientX, clientY }) => {
-              web3FashionItems[selectedIndex[0]].style = {
+              web3RunwayItems[selectedIndex[0]].style = {
                 width: target.style.width,
                 height: target.style.height,
                 transform: target.style.transform,
@@ -620,7 +620,7 @@ const BottomPart = (props) => {
                 fontSize: target.style.fontSize,
                 color: target.style.color,
               };
-              setWeb3FashionItems([...web3FashionItems]);
+              setWeb3RunwayItems([...web3RunwayItems]);
               onClickTarget(
                 document.getElementById(`web3-fashion-item-${selectedIndex}`),
                 selectedIndex[0]
@@ -635,7 +635,7 @@ const BottomPart = (props) => {
             onDragGroupEnd={(e) => {
               e.targets.forEach((target) => {
                 const itemId = parseInt(target.id.replace('web3-fashion-item-', ''));
-                web3FashionItems[itemId].style = {
+                web3RunwayItems[itemId].style = {
                   width: target.style.width,
                   height: target.style.height,
                   transform: target.style.transform,
@@ -657,7 +657,7 @@ const BottomPart = (props) => {
             onRotateGroupEnd={(e) => {
               e.targets.forEach((target) => {
                 const itemId = parseInt(target.id.replace('web3-fashion-item-', ''));
-                web3FashionItems[itemId].style = {
+                web3RunwayItems[itemId].style = {
                   width: target.style.width,
                   height: target.style.height,
                   transform: target.style.transform,
@@ -676,7 +676,7 @@ const BottomPart = (props) => {
               delta[1] && (target.style.height = `${height}px`);
             }}
             onResizeEnd={({ target, isDrag, clientX, clientY }) => {
-              web3FashionItems[selectedIndex[0]].style = {
+              web3RunwayItems[selectedIndex[0]].style = {
                 width: target.style.width,
                 height: target.style.height,
                 transform: target.style.transform,
@@ -685,7 +685,7 @@ const BottomPart = (props) => {
                 fontSize: target.style.fontSize,
                 color: target.style.color,
               };
-              setWeb3FashionItems([...web3FashionItems]);
+              setWeb3RunwayItems([...web3RunwayItems]);
               onClickTarget(
                 document.getElementById(`web3-fashion-item-${selectedIndex[0]}`),
                 selectedIndex[0]
@@ -698,7 +698,7 @@ const BottomPart = (props) => {
               target.style.transform = transform;
             }}
             onRotateEnd={({ target, isDrag, clientX, clientY }) => {
-              web3FashionItems[selectedIndex[0]].style = {
+              web3RunwayItems[selectedIndex[0]].style = {
                 width: target.style.width,
                 height: target.style.height,
                 transform: target.style.transform,
@@ -707,7 +707,7 @@ const BottomPart = (props) => {
                 fontSize: target.style.fontSize,
                 color: target.style.color,
               };
-              setWeb3FashionItems([...web3FashionItems]);
+              setWeb3RunwayItems([...web3RunwayItems]);
               onClickTarget(
                 document.getElementById(`web3-fashion-item-${selectedIndex[0]}`),
                 selectedIndex[0]
@@ -715,7 +715,7 @@ const BottomPart = (props) => {
             }}
           />
         )}
-        {web3FashionItems.map((item, index) => {
+        {web3RunwayItems.map((item, index) => {
           if (item.type === 'text') {
             return (
               <div

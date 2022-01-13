@@ -56,37 +56,37 @@ const EditModelProfile = () => {
     const result = await APIService.getMaterialVS()
     const { digitalaxMaterialV2S } = result
 
-    const { digitalaxCollectionGroups } = await APIService.getCollectionGroups()
+    // const { digitalaxCollectionGroups } = await APIService.getCollectionGroups()
 
-    const auctionItems = []
-    if (model && model['modelId']) {
-      digitalaxCollectionGroups.forEach(group => {
-        auctionItems.push(
-          ...group.auctions.filter(
-            auctionItem => {
-              return auctionItem.model.name.toLowerCase() === model['modelId'].toLowerCase()
-            }
-          ).map(item => {
-            return {
-              ...item.garment,
-              isAuction: 1
-            }
-          })
-        )
+    // const auctionItems = []
+    // if (model && model['modelId']) {
+    //   digitalaxCollectionGroups.forEach(group => {
+    //     auctionItems.push(
+    //       ...group.auctions.filter(
+    //         auctionItem => {
+    //           return auctionItem.model.name.toLowerCase() === model['modelId'].toLowerCase()
+    //         }
+    //       ).map(item => {
+    //         return {
+    //           ...item.garment,
+    //           isAuction: 1
+    //         }
+    //       })
+    //     )
   
-        group.collections.filter(
-          collectionItem => {
-            return collectionItem.model.name.toLowerCase() === model['modelId'].toLowerCase()
-          }
-        ).forEach(item => {
-          auctionItems.push(
-            ...item.garments.map(garment => { return {...garment, rarity: getRarityNumber(item.rarity), isAuction: 0, id: item.id}})
-          )
-        })
-      })
-    }
+    //     group.collections.filter(
+    //       collectionItem => {
+    //         return collectionItem.model.name.toLowerCase() === model['modelId'].toLowerCase()
+    //       }
+    //     ).forEach(item => {
+    //       auctionItems.push(
+    //         ...item.garments.map(garment => { return {...garment, rarity: getRarityNumber(item.rarity), isAuction: 0, id: item.id}})
+    //       )
+    //     })
+    //   })
+    // }
 
-    setMarketplaceItems(auctionItems)
+    // setMarketplaceItems(auctionItems)
     // console.log('auctionItems: ', auctionItems)
 
     const materials = []

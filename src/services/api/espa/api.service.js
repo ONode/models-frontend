@@ -268,7 +268,8 @@ class EspaApiService {
     linkedin,
     tiktok,
     youtube,
-    web3FashionItems,
+    mirror,
+    web3RunwayItems,
   }) {
     try {
       const message = await post('/register-model', {
@@ -284,7 +285,8 @@ class EspaApiService {
         linkedin,
         tiktok,
         youtube,
-        web3FashionItems,
+        mirror,
+        web3RunwayItems,
       })
       return message
     } catch (e) {
@@ -292,7 +294,7 @@ class EspaApiService {
     }
   }
 
-  async registerOnChainFashionItem({
+  async registerOnChainLookItem({
     wallet,
     randomString,
     modelId,
@@ -303,13 +305,12 @@ class EspaApiService {
     price,
     type,
     auctionTime,
-    sourceType,
     sourceFile,
     renderFiles,
     attachFGO,
   }) {
     try {
-      const message = await post('/register-on-chain-fashion-item', {
+      const message = await post('/register-on-chain-look-item', {
         wallet,
         randomString,
         modelId,
@@ -319,7 +320,6 @@ class EspaApiService {
         editionNo,
         price,
         type,
-        sourceType,
         sourceFile,
         renderFiles,
         auctionTime,

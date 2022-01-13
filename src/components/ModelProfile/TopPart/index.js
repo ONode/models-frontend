@@ -4,15 +4,18 @@ import Link from 'next/link'
 
 import Button from '@components/Button'
 import CollectionCard from '@components/collection-card'
-import OnChainFashionSubmitForm from '../OnChainFashionSubmitForm'
-import PatternCircle from '@components/ModelProfile/PatternCircle'
+import OnChainLookSubmitForm from '../OnChainLookSubmitForm'
+import AvatarElementalCard from '@components/AvatarElementalCard'
 import modelActions from '@actions/model.actions'
+import { getAttribute } from '@helpers/thegraph.helpers'
+import { reviseUrl } from '@utils/helpers'
+
 import styles from './styles.module.scss'
 
 const MAX_DESCRIPTION_LENGTH = 672
 
 const ModelProfileTopPart = (props) => {
-  const { isEdit, modelInfo, materialList, marketplaceItems } = props
+  const { isEdit, modelInfo, avatarElementals, marketplaceItems } = props
 
   const [avatarUrl, setAvatarUrl] = useState('')
   const [isEditingAvatar, setIsEditingAvatar] = useState(false)
@@ -42,8 +45,8 @@ const ModelProfileTopPart = (props) => {
   }, [modelInfo['instagram']])
 
   useEffect(() => {
-    setMirrorDraft(modelInfo['ThreadMirror'])
-  }, [modelInfo['ThreadMirror']])
+    setMirrorDraft(modelInfo['mirror'])
+  }, [modelInfo['mirror']])
 
   useEffect(() => {
     setLinkedinDraft(modelInfo['linkedin'])
@@ -130,7 +133,7 @@ const ModelProfileTopPart = (props) => {
       ? youtubeDraft
       : `https://${youtubeDraft}`
     modelInfo['tiktok'] = tiktokDraft.includes('https') ? tiktokDraft : `https://${tiktokDraft}`
-    modelInfo['ThreadMirror'] = mirrorDraft.includes('https') ? mirrorDraft : `https://${mirrorDraft}`
+    modelInfo['mirror'] = mirrorDraft.includes('https') ? mirrorDraft : `https://${mirrorDraft}`
 
     dispatch(modelActions.updateProfile(modelInfo))
   }
@@ -244,12 +247,12 @@ const ModelProfileTopPart = (props) => {
               <img src="/images/social-button-circle/youtube.png" />
             </a>
           )}
-          {modelInfo['ThreadMirror'] && modelInfo['ThreadMirror'] !== '' && (
+          {modelInfo['mirror'] && modelInfo['mirror'] !== '' && (
             <a
               href={
-                modelInfo['ThreadMirror'].includes('https')
-                  ? modelInfo['ThreadMirror']
-                  : `https://${modelInfo['ThreadMirror']}`
+                modelInfo['mirror'].includes('https')
+                  ? modelInfo['mirror']
+                  : `https://${modelInfo['mirror']}`
               }
               target="_blank"
             >
@@ -357,36 +360,50 @@ const ModelProfileTopPart = (props) => {
 
       {!isEdit && (
         <div className={styles.patternSection}>
-          <div
-            className={[
-              styles.patternWrapper3,
-              materialList.length <= 5 ? styles.smallPattern : '',
-            ].join(' ')}
-          >
-            {materialList.slice(0, 6).map((item, index) => {
-              return (
-                <PatternCircle
-                  key={index}
-                  item={item}
-                  index={index}
-                  direction={index === 2 ? 'Left' : 'Right'}
-                />
-              )
-            })}
+          <div className={styles.pattern1}>
+            {
+              avatarElementals.filter((item, index) => index == 0 || index % 2 == 1).map((item, index) => {
+                return (
+                  <div className={styles.cardWrapper} key={index}>
+                    <AvatarElementalCard
+                      name={item.name}
+                      image={item.image}
+                      type={getAttribute(item, 'Type')}
+                      gender={getAttribute(item, 'Gender')}
+                      style={getAttribute(item, 'Style')}
+                      element={getAttribute(item, 'Element')}
+                      tokenUri={reviseUrl(item.tokenUri)}
+                      sourceFileExt={getAttribute(item, 'sourceFileExt')}
+                      sourceFileType={getAttribute(item, 'sourceFileType')}
+                      renderedFileExt={getAttribute(item, 'renderedFileExt')}
+                    />
+                  </div>
+                )
+              })
+            }
           </div>
 
-          <div className={styles.patternWrapper4}>
-            {materialList.slice(7, materialList.length).map((item, index) => {
-              return (
-                <PatternCircle
-                  key={index}
-                  item={item}
-                  index={index}
-                  secondPart
-                  direction={index % 3 === 2 ? 'Left' : 'Right'}
-                />
-              )
-            })}
+          <div className={styles.pattern2}>
+            {
+              avatarElementals.filter((item, index) => index !== 0 && index % 2 == 0).map((item, index) => {
+                return (
+                  <div className={styles.cardWrapper} key={index}>
+                    <AvatarElementalCard
+                      name={item.name}
+                      image={item.image}
+                      type={getAttribute(item, 'Type')}
+                      gender={getAttribute(item, 'Gender')}
+                      style={getAttribute(item, 'Style')}
+                      element={getAttribute(item, 'Element')}
+                      tokenUri={reviseUrl(item.tokenUri)}
+                      sourceFileExt={getAttribute(item, 'sourceFileExt')}
+                      sourceFileType={getAttribute(item, 'sourceFileType')}
+                      renderedFileExt={getAttribute(item, 'renderedFileExt')}
+                    />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       )}
@@ -419,7 +436,7 @@ const ModelProfileTopPart = (props) => {
       {isEdit && (
         <div className={styles.submitFormWrapper}>
           <h1>On-Chain Looks</h1>
-          <OnChainFashionSubmitForm modelId={modelInfo['modelId']} />
+          <OnChainLookSubmitForm modelId={modelInfo['modelId']} />
         </div>
       )}
     </div>

@@ -24,6 +24,7 @@
     align-items: center;
 
     color: #FFFFFF;
+    -webkit-text-stroke: 1px black;
   }
 
   .details {
@@ -58,7 +59,8 @@
       width: 100%;
       left: 0;
       bottom: 0;
-      height: 30%;
+      // height: 30%;
+      padding-bottom: 5%;
       background: rgba(0, 0, 0, 0.38);
     }
   }
