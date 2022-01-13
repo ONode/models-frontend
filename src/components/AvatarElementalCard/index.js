@@ -11,8 +11,14 @@ const AvatarElementalCard = props => {
     gender,
     style,
     element,
-    tokenUri
+    tokenUri,
+    sourceFileExt,
+    sourceFileType,
+    renderedFileExt
   } = props
+
+  const isVideoFile = renderedFileExt.toLowerCase() == 'mp4' ||
+   renderedFileExt.toLowerCase() == 'avi'
 
   const downloadFile = async () => {
     console.log('tokenUri: ', tokenUri)
@@ -21,9 +27,10 @@ const AvatarElementalCard = props => {
     console.log('--- item tokenRes: ', tokenRes)
 
     const rdata = await tokenRes.json()
-    console.log('-- rdata: ', reviseUrl(rdata['3D_File']))
+    console.log('-- rdata: ', rdata)
 
     const response = await fetch(rdata['3D_File'], {
+      'Content-Type': sourceFileType == '' ? 'multipart/form-data' : sourceFileType,
       mode: 'cors' // 'cors' by default
     })
 
@@ -39,7 +46,7 @@ const AvatarElementalCard = props => {
     link.href = url
     link.setAttribute(
       'download',
-      `3DFile`
+      `3DFile${sourceFileExt == '' ? '' : '.'}${sourceFileExt}`
     )
 
     // Append to html link element page
@@ -51,21 +58,30 @@ const AvatarElementalCard = props => {
     // Clean up and remove the link
     link.parentNode.removeChild(link)
     
-  }
-
-  const onClickDownload = () => {
-    downloadFile()
-  }
-  
+  }  
 
   return (
     <div className={styles.cardWrapper}>
       <div className={styles.imageWrapper}>
-        <Image 
-          src={reviseUrl(image)}
-          width='1000'
-          height='1000'
-        />
+        {
+          !isVideoFile &&
+          <Image 
+            src={reviseUrl(image)}
+            width='1000'
+            height='1000'
+          />
+        }
+        {
+          isVideoFile && 
+          <video 
+            autoPlay muted loop playsInline
+          >
+            <source
+              src={reviseUrl(image)}
+              type='video/mp4'
+            />
+          </video>
+        }
       </div>
       <div className={styles.name}>
         { name }

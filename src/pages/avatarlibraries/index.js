@@ -116,6 +116,9 @@ const AvatarLibraries = (props) => {
                       style={getAttribute(item, 'Style')}
                       element={getAttribute(item, 'Element')}
                       tokenUri={reviseUrl(item.tokenUri)}
+                      sourceFileExt={getAttribute(item, 'sourceFileExt')}
+                      sourceFileType={getAttribute(item, 'sourceFileType')}
+                      renderedFileExt={getAttribute(item, 'renderedFileExt')}
                     />
                   </Grid>
                 )

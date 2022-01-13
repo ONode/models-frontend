@@ -41,7 +41,7 @@ export const upload = async (metaJson, renderFile, sourceFile = null) => {
       pinataContent: {
         ...metaJson,
         image_url: `${cloudURL}/ipfs/${image.data.IpfsHash}`,
-        source_url: (sourceFile && sourceImage) ? `${cloudURL}/ipfs/${sourceImage.data.IpfsHash}` : null
+        '3D_File': (sourceFile && sourceImage) ? `${cloudURL}/ipfs/${sourceImage.data.IpfsHash}` : null
       }
     }, {
       headers: {
