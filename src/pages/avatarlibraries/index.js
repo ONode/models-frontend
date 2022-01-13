@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core'
 import { getAvatarElementals } from '@services/api/apiService'
 
 import {
-  getAllResultsFromQueryWithoutOwner
+  getAllResultsFromQueryWithoutOwner,
+  getAttribute
  } from '@helpers/thegraph.helpers'
 
  import {
@@ -12,6 +13,7 @@ import {
 } from '@constants/global.constants'
 
 import AvatarElementalCard from '@components/AvatarElementalCard'
+import PixelLoader from '@components/pixel-loader'
 
 import { reviseUrl } from '@utils/helpers'
 
@@ -79,18 +81,16 @@ const AvatarLibraries = (props) => {
       ) : (
         <>
           <div className="flex flex-col my-5 items-center opensourceheader">
-            
+            Open Source Avatar Library
           </div>
         </>
       )}
       {loading ? (
-        <>
+        <div className={styles.loadingSpace}>
           <div className={styles.loadingWrapper}>
-            <video autoPlay muted loop className={styles.loadingVideo}>
-              <source src="/video/init-loading.mp4" type="video/mp4" />
-            </video>
+            <PixelLoader title={'loading...'} />
           </div>
-        </>
+        </div>
       ) : (
         <div className={styles.container}>
           <Grid container item xs={12} spacing={2}  >
