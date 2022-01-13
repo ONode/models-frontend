@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import Link from 'next/link'
 
 import Button from '@components/Button'
 import CollectionCard from '@components/collection-card'
@@ -405,6 +404,14 @@ const ModelProfileTopPart = (props) => {
               })
             }
           </div>
+
+          <div className={styles.manekinSection}>
+            <div className={styles.goldRect}>
+            </div>
+            <div className={styles.blackRect}>
+            </div>
+            <img className={styles.modelImage} src="/images/homepage/home_model_3.png" />
+          </div>
         </div>
       )}
 
@@ -417,7 +424,7 @@ const ModelProfileTopPart = (props) => {
           ADD MORE TO OAL
         </Button>
       )}
-
+      
       {!isEdit && marketplaceItems.length > 0 && (
         <div className={styles.marketplaceSection}>
           <h1>On-Chain Looks</h1>
