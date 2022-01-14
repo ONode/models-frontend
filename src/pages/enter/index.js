@@ -76,7 +76,7 @@ function Home(props) {
         <div className="relative flex flex-col justify-center items-center md:flex md:flex-row md:justify-between md:items-end w-full mt-10">
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product1.png" className="w-full" alt="" />
-            <a href="/global"  target='_blank'>
+            <a href="/global">
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
@@ -87,7 +87,7 @@ function Home(props) {
 
           <div className="relative productimg mt-10 md:mt-0" >
             <img src="/images/product2.png" className="w-full enterimg" alt="" />
-            <a href="https://runway.digitalax.xyz" target='_blank'>
+            <a href="https://runway.digitalax.xyz">
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
@@ -103,7 +103,7 @@ function Home(props) {
 
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product3.png" className="md:w-full enterimg" alt="" />
-            <a href="/openelementals"  target='_blank'>
+            <a href="/openelementals">
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
@@ -114,7 +114,7 @@ function Home(props) {
 
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product4.png" className="w-full enterimg" alt="" />
-            <a href="/avatarlibraries" target="_blank">
+            <a href="/avatarlibraries">
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
@@ -139,7 +139,7 @@ function Home(props) {
           
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product6.png" className="w-full enterimg" alt="" />
-            <a href="https://realmrunway.xyz" target='_blank'>
+            <a href="https://realmrunway.xyz">
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
