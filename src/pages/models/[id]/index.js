@@ -142,6 +142,7 @@ const ModelPage = () => {
     setAvatarElementals(
       result.filter(
         item => getAttribute(item, 'Minter').toLowerCase() === model.modelId.toLowerCase()
+          && parseInt(item.id) > 100014
       )
     )
   }

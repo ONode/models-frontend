@@ -139,7 +139,7 @@ function Home(props) {
           
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product6.png" className="w-full enterimg" alt="" />
-            <a href="https://digitalax.gitbook.io/digitalax/token-economy/token-distribution#usdw3f.-erc-20" target='_blank'>
+            <a href="https://realmrunway.xyz" target='_blank'>
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
