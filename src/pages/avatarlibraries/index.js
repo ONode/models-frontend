@@ -98,10 +98,10 @@ const AvatarLibraries = (props) => {
               avatarElementals.map(item => {
                 return (
                   <Grid item xs={!isMobile ? 4 : 12} key={item.id}>
-
                     <AvatarElementalCard
                       name={item.name}
                       image={item.image}
+                      minter={getAttribute(item, 'Minter')}
                       type={getAttribute(item, 'Type')}
                       gender={getAttribute(item, 'Gender')}
                       style={getAttribute(item, 'Style')}

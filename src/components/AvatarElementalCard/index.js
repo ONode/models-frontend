@@ -6,6 +6,7 @@ import styles from './styles.module.scss'
 const AvatarElementalCard = props => {
   const {
     name,
+    minter,
     image,
     type,
     gender,
@@ -88,6 +89,9 @@ const AvatarElementalCard = props => {
       </div>
 
       <div className={styles.details}>
+        <div className={styles.attribute}>
+          MODEL: {minter}
+        </div>
         <div className={styles.attribute}>
           TYPE: {type}
         </div>

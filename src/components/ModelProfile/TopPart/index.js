@@ -367,6 +367,7 @@ const ModelProfileTopPart = (props) => {
                     <AvatarElementalCard
                       name={item.name}
                       image={item.image}
+                      minter={getAttribute(item, 'Minter')}
                       type={getAttribute(item, 'Type')}
                       gender={getAttribute(item, 'Gender')}
                       style={getAttribute(item, 'Style')}
@@ -390,6 +391,7 @@ const ModelProfileTopPart = (props) => {
                     <AvatarElementalCard
                       name={item.name}
                       image={item.image}
+                      minter={getAttribute(item, 'Minter')}
                       type={getAttribute(item, 'Type')}
                       gender={getAttribute(item, 'Gender')}
                       style={getAttribute(item, 'Style')}
