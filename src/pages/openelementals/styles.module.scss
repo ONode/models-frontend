@@ -16,12 +16,12 @@
     font-family: Fira Sans Condensed;
     font-style: normal;
     font-weight: 500;
-    font-size: 2.6vw;
+    font-size: 2.4vw;
     line-height: 120%;
     text-align: center;
     color: #E6BF00;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
     margin-bottom: 3vw;
   }
 
@@ -32,6 +32,11 @@
     font-size: 1.25vw;
     line-height: 120%;
     padding: 5% 10% 10% 10%;
+    text-align: center;
+
+    span {
+      font-weight: 700;
+    }
   }
 
   @media (max-width: 768px) {

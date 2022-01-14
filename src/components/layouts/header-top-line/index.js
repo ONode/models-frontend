@@ -126,21 +126,35 @@ const HeaderTopLine = ({ className, buttonText }) => {
       </div>
       <div className={styles.rightBox}>
         <div className={cn(styles.links, isCollapse ? styles.expandedMenu : '')}>
-          <Link href='https://fashion.digitalax.xyz'>
-            <a className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')} target='_blank'>
+          <Link href='https://fashion.digitalax.xyz' >
+            <a
+              className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')}
+              target='_blank'
+              onClick={() => setIsCollapse(false)}
+            >
               Shop the Runway NFTs
             </a>
           </Link>
-          <Link href='/global'>
-            <a className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')}>
+          <Link href='/global' >
+            <a
+              className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')}
+              onClick={() => setIsCollapse(false)}
+            >
               Global Models Syndicate
             </a>
           </Link>
           <Link href='/avatarlibraries'>
-            <a className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')}>Open Source Avatar Library</a>
+            <a
+              className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')}
+              onClick={() => setIsCollapse(false)}
+            >
+              Open Source Avatar Library
+            </a>
           </Link>
-          <Link href='/getdressed'>
-            <a className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')}>Staking</a>
+          <Link href='https://staking.digitalax.xyz/'>
+            <a
+              className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')} target='_blank'
+            >Staking</a>
           </Link>
           {isMobile && !user && (
             <a className={cn(styles.link, isBlackHeader ? 'text-white' : 'text-black')} onClick={() => handleClick()}>
@@ -193,7 +207,7 @@ const HeaderTopLine = ({ className, buttonText }) => {
             )}
           </div>
           <a className={styles.collapseIcon} onClick={onIconHander}>
-            <img src='/images/hamburger.png' alt='' />
+            <img src={`/images/hamburger${isBlackHeader ? '' : '-black'}.png`} alt='' />
           </a>
         </div>
       </div>

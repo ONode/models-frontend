@@ -79,11 +79,11 @@ const AvatarLibraries = (props) => {
           </h1>
         </div>
       ) : (
-        <>
-          <div className="flex flex-col my-5 items-center opensourceheader">
+        <div className={styles.content}>
+          <h1>
             Open Source Avatar Library
-          </div>
-        </>
+          </h1>
+        </div>
       )}
       {loading ? (
         <div className={styles.loadingSpace}>

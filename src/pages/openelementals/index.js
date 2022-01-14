@@ -8,18 +8,30 @@ const OpenElemantals = () => {
         Open Elementals
       </h1>
       <h2>
-        Exploring  Breakout Looks And Rising in Prominence in Web3 Fashion And the Open Metaverse. Exploring  Breakout Looks And Rising in Prominence in Web3 Fashion And the Open Metaverse. Exploring  Breakout Looks And Rising in Prominence in Web3 Fashion And the Open Metaverse. 
+        When we think about the spaces that we inhabit, the external elements that shape, direct and constrict our experience are usually noticed first; what we recognise far less is how we move through the flow of everything surrounding us and the intricate ways our unique relationships with ourselves form a totally individual fingerprint in motion.
       </h2>
       <div className={styles.content}>
-        I can't fathom the idea of living a so called 'normal' life. For me, that is a far bigger risk to take than sacrificing and giving up everything for a cause and mission that has never been charted before. That's how I feel about what I am doing now with digital fashion, web3, the metaverse. This is exactly what I want to be doing and where I need to be. This mission is so astronomically crucial for all of us. It just cannot be cast aside or undervalued. And, I feel so intrinsically invested in making sure that everything I do in my life substantially moves this mission forward no matter what it takes. I hope to inspire many others to join and pioneer alongside me. 
+        Each pose is symbolic, adding up to a representation of ourselves in the avatars that we choose, and how our body language projects our moods, the games that we play with each other, our desire, and even, or maybe especially, the tell tale signs about our deeper selves we've yet to encounter.
         <br /><br />
-        I can't fathom the idea of living a so called 'normal' life. For me, that is a far bigger risk to take than sacrificing and giving up everything for a cause and mission that has never been charted before. That's how I feel about what I am doing now with digital fashion, web3, the metaverse. This is exactly what I want to be doing and where I need to be. This mission is so astronomically crucial for all of us. It just cannot be cast aside or undervalued. And, I feel so intrinsically invested in making sure that everything I do in my life substantially moves this mission forward no matter what it takes. I hope to inspire many others to join and pioneer alongside me.
+        <span>Who knew there was so much contained and conveyed in a simple pose.</span>
         <br /><br />
-        I can't fathom the idea of living a so called 'normal' life. For me, that is a far bigger risk to take than sacrificing and giving up everything for a cause and mission that has never been charted before. That's how I feel about what I am doing now with digital fashion, web3, the metaverse. This is exactly what I want to be doing and where I need to be. This mission is so astronomically crucial for all of us. It just cannot be cast aside or undervalued. And, I feel so intrinsically invested in making sure that everything I do in my life substantially moves this mission forward no matter what it takes. I hope to inspire many others to join and pioneer alongside me.
+        This isn't the interface we most intimately wear, it's the infinite interface that is a part of who we are. 
         <br /><br />
-        I can't fathom the idea of living a so called 'normal' life. For me, that is a far bigger risk to take than sacrificing and giving up everything for a cause and mission that has never been charted before. That's how I feel about what I am doing now with digital fashion, web3, the metaverse. This is exactly what I want to be doing and where I need to be. This mission is so astronomically crucial for all of us. It just cannot be cast aside or undervalued. And, I feel so intrinsically invested in making sure that everything I do in my life substantially moves this mission forward no matter what it takes. I hope to inspire many others to join and pioneer alongside me.
+        It is what is within our skin. 
         <br /><br />
-        I can't fathom the idea of living a so called 'normal' life. For me, that is a far bigger risk to take than sacrificing and giving up everything for a cause and mission that has never been charted before. That's how I feel about what I am doing now with digital fashion, web3, the metaverse. This is exactly what I want to be doing and where I need to be. This mission is so astronomically crucial for all of us. It just cannot be cast aside or undervalued. And, I feel so intrinsically invested in making sure that everything I do in my life substantially moves this mission forward no matter what it takes. I hope to inspire many others to join and pioneer alongside me.
+        Who knew too that the trick to kinesthetic self sovereignty is simply to go shopping. 
+        <br /><br />
+        We must first collect the ingredients that later become our movements. 
+        <br /><br />
+        As we bring every complement into web3 fashion; from modeling, to make up artistry to hair styling on through photography and more, we are releasing in parallel an abundance of these ingredients stored and made available to all in the Open Source Elemental Libraries- including the core commodities and constitutions traded throughout these industries and markets.
+        <br /><br />
+        <span>
+          The Global Models Syndicate has launched the Open Elementals: Avatar Library.
+        </span>
+        <br /><br />
+        Designers and Models mint 1155 NFTs of various and diverse avatar files and poses, open sourcing them with transparent on-chain provenance, enabling every model and designer that moves through this medium direct access and empowerment to an unbound range of personas reflective of the full diversity of humanity.
+        <br /><br />
+        Any designer can now incorporate these 1155 NFTs into their master 721 model NFTs (i.e. when the model is used in the scene or garment being sold), establishing a new use case for the ERC-998 bundle standard. You can read more about how we use ERC-998 for the web3 fashion supply chain through Fractional Garment Ownership here. 
       </div>
     </div>
   )

@@ -76,7 +76,7 @@ function Home(props) {
         <div className="relative flex flex-col justify-center items-center md:flex md:flex-row md:justify-between md:items-end w-full mt-10">
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product1.png" className="w-full" alt="" />
-            <a href="/global">
+            <a href="/global"  target='_blank'>
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
@@ -103,7 +103,7 @@ function Home(props) {
 
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product3.png" className="md:w-full enterimg" alt="" />
-            <a href="/openelementals">
+            <a href="/openelementals"  target='_blank'>
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
@@ -128,7 +128,7 @@ function Home(props) {
         <div className="relative flex flex-col justify-center items-center md:flex md:flex-row md:justify-between md:items-end w-full mt-16">
           <div className="relative productimg mt-10 md:mt-0">
             <img src="/images/product5.png" className="w-full" alt="" />
-            <a href="/avatarlibraries">
+            <a href="/minting"  target='_blank'>
               <img
                 src="/images/homepage/right_arrow.png"
                 className={[styles.arrowImage, "z-50 w-28 animate-horizonbounce"].join(' ')}
