@@ -3,7 +3,7 @@ import { Paper } from '@material-ui/core'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import styles from './styles.module.scss'
 
-const patternCircle = (props) => {
+const avatar = (props) => {
   const { item, index, direction = 'Right', secondPart } = props
   const curImage = useRef(null)
   const imgViewer = useRef(null)

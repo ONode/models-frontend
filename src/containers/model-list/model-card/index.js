@@ -13,7 +13,14 @@ const ModelCard = ({ item }) => {
     <div className={cn(styles.wrapper)}>
       <Link href={encodeURI(`/models/${item['modelId']}`)}>
         <a>
-          <img src={item['image_url']} alt={item['modelId']} className={styles.photo} />
+          {
+            item['image_url'] && item['image_url'] != '' &&
+            <img src={item['image_url']} alt={item['modelId']} className={styles.photo} />
+          }
+          {
+            (!item['image_url'] || !item['image_url'] != '') &&
+            <div className={styles.photo} />
+          }
           <div className={styles.name}>{item['modelId']}</div>
         </a>
       </Link>

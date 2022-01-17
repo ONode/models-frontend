@@ -85,6 +85,62 @@ function Landing(props) {
           height='1328'
         />
       </div>
+      <div className={styles.socialSection}>
+        <h1>
+          Follow the Breakout Web3 Models and Join the Syndicate. 
+        </h1>
+        <div className={styles.socialWrapper}>
+          <a href='https://twitter.com/web3models' target='_blank' >
+            <Image
+              src='/images/social-gold/twitter.png'
+              width='83'
+              height='83'
+            />
+          </a>
+          <a href='https://www.instagram.com/globalmodelssyndicate/' target='_blank' >
+            <Image
+              src='/images/social-gold/instagram.png'
+              width='83'
+              height='83'
+            />
+          </a>
+          <a href='https://www.youtube.com/channel/UCXOlbugJshCLGL1Z8xUhauw' target='_blank' >
+            <Image
+              src='/images/social-gold/youtube.png'
+              width='83'
+              height='83'
+            />
+          </a>
+          {/* <a href='https://twitter.com/web3models' target='_blank' >
+            <Image
+              src='/images/social-gold/tiktok.png'
+              width='83'
+              height='83'
+            />
+          </a> */}
+          <a href='https://www.linkedin.com/company/global-models-syndicate/' target='_blank' >
+            <Image
+              src='/images/social-gold/linkedin.png'
+              width='83'
+              height='83'
+            />
+          </a>
+          <a href='https://mirror.xyz/globalmodelssyndicate.eth' target='_blank' >
+            <Image
+              src='/images/social-gold/mirror.png'
+              width='83'
+              height='83'
+            />
+          </a>
+          <a href='https://discord.gg/Ht9as7wCUk' target='_blank' >
+            <Image
+              src='/images/social-gold/discord.png'
+              width='83'
+              height='83'
+            />
+          </a>
+        </div>
+      </div>
     </div>
   )
 }

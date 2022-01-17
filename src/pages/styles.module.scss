@@ -1,5 +1,5 @@
 .wrapper {
-  min-height: 100vw;
+  min-height: 130vw;
   position: relative;
 
   .titleSection {
@@ -84,5 +84,54 @@
     height: 69.16vw;
     left: 40vw;
     top: 39vw;
+  }
+
+  .socialSection {
+    background: linear-gradient(90deg, #E6BF00 -0.81%, #0C0D0E 100%);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 3vw 5vw;
+
+    h1 {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 2.6vw;
+      line-height: 120%;
+      color: #FFFFFF;
+    }
+
+    .socialWrapper {
+      display: flex;
+      flex-direction: row;
+      margin-top: 2vw;
+
+      a {
+        width: 4.32vw;
+        height: 4.32vw;
+        margin-right: 1vw;
+        border-radius: 50%;
+        border: 3px solid black;
+        background-color: #000000;
+      }
+    }
+
+    @media only screen and (max-width: 415px) {
+      h1 {
+        font-size: 20px;
+      }
+      
+      .socialWrapper {
+        a {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 415px) {
+    min-height: 150vw;
   }
 }

@@ -39,7 +39,7 @@ const ModelList = () => {
 
   async function loadData() {
     const models = await api.getAllModels() || []
-    setModelList(models.filter(model => !model.organization))
+    setModelList(models.filter(model => !model.organization && !model.hidden))
   }
 
   useEffect(() => {
