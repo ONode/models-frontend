@@ -117,23 +117,28 @@ const ModelProfileTopPart = (props) => {
     window.open('/minting', '_blank')
   }
 
+  const getSocialLink = (socialDraft, social) => {
+    if (!socialDraft || socialDraft == '') return ""
+    if (social == 'twitter') {
+      return socialDraft.includes('twitter.com')
+      ? socialDraft
+      : `https://twitter.com/${socialDraft}`
+    }
+
+    return socialDraft.includes('https')
+      ? socialDraft
+      : `https://${socialDraft}`
+  }
+
   // Social
   const saveSocialLinks = () => {
-    modelInfo['twitter'] = twitterDraft.includes('twitter.com')
-      ? twitterDraft
-      : `https://twitter.com/${twitterDraft}`
-    modelInfo['instagram'] = instagramDraft.includes('https')
-      ? instagramDraft
-      : `https://${instagramDraft}`
-    modelInfo['linkedin'] = linkedinDraft.includes('https')
-      ? linkedinDraft
-      : `https://${linkedinDraft}`
-    modelInfo['youtube'] = youtubeDraft.includes('https')
-      ? youtubeDraft
-      : `https://${youtubeDraft}`
-    modelInfo['tiktok'] = tiktokDraft.includes('https') ? tiktokDraft : `https://${tiktokDraft}`
-    modelInfo['mirror'] = mirrorDraft.includes('https') ? mirrorDraft : `https://${mirrorDraft}`
-
+    modelInfo['twitter'] = getSocialLink(twitterDraft, 'twitter')
+    modelInfo['instagram'] = getSocialLink(instagramDraft, 'instagram')
+    modelInfo['linkedin'] = getSocialLink(linkedinDraft, 'linkedin')
+    modelInfo['youtube'] = getSocialLink(youtubeDraft, 'youtube')
+    modelInfo['tiktok'] = getSocialLink(tiktokDraft, 'tiktok')
+    modelInfo['mirror'] = getSocialLink(mirrorDraft, 'mirror')
+    
     dispatch(modelActions.updateProfile(modelInfo))
   }
 
