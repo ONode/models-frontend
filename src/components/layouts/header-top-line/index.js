@@ -89,7 +89,7 @@ const HeaderTopLine = ({ className, buttonText }) => {
 
   const isBlackHeader = !isGlobalPage && !isAvatarPage && !isMintingPage && !isOpenElementalsPage
 
-  console.log('isGlobalPage: ', isGlobalPage)
+  console.log('isBlackHeader: ', isBlackHeader)
 
   const handleProfileClick = () => {
     setIsShowMenu(false)
