@@ -9,7 +9,7 @@ import { getAccount } from '@selectors/user.selectors'
 import ERC20ABI from '@constants/mint_abi.json'
 import styles from './styles.module.scss'
 
-const address = '0x6c2a60333442aad9c34e7034fa1d04d7ad0a6f33'
+const address = '0x9bd6e928bef1ac9e41e8c5431657d2b9a6c6fe3e'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window
