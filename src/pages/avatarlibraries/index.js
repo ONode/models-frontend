@@ -61,7 +61,7 @@ const AvatarLibraries = (props) => {
     )
     
     console.log('avatarElementals: ', result)
-    setAvatarElementals(result.filter(item => parseInt(item.id) > 100014))
+    setAvatarElementals(result.filter(item => parseInt(item.id) > 100014 && parseInt(item.id) != 100021))
     setLoading(false)
   }
 
