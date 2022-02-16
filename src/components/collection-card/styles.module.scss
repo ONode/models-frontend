@@ -1,8 +1,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  margin-left: 5vw;
-  margin-bottom: 5vw;
+  justify-content: center;
+  align-items: center;
 
   .collectionName {
     font-family: Gilroy;
@@ -13,13 +13,16 @@
     line-height: 122%;
     word-wrap: break-word;
     width: fit-content;
+    width: 34vw;
 
-    margin-left: 3vw;
     color: #e6bf00;
     border-left: 1rem solid #e6bf00;
     border-right: 1rem solid black;
     background: black;
     text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .frameWrapper {
@@ -127,6 +130,7 @@
       font-weight: 800;
       font-size: 1.5vw;
       line-height: 120%;
+      white-space: nowrap;
       padding: 1vw 2vw;
 
       color: #e6bf00;

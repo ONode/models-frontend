@@ -397,9 +397,11 @@
     }
 
     .marketplaceItems {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7vw 5vw;
       margin-top: 6vw;
+
       a {
         z-index: 4;
       }
