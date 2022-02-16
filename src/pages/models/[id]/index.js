@@ -92,11 +92,8 @@ const ModelPage = () => {
       ) {
         group.collections
           .filter((collectionItem) => {
-            //   console.log(`model: ${collectionItem.model.name.toLowerCase()},current: ${model['newModelID'].toLowerCase()}, check: ${
-            //     collectionItem.model.name.toLowerCase() == model['newModelID'].toLowerCase()
-            // } `)
             return (
-              collectionItem.model.name.toLowerCase() ===
+              collectionItem?.model?.name.toLowerCase() ===
                 model["modelId"].toLowerCase() ||
               (model["newModelID"] &&
                 model["newModelID"] !== "" &&
