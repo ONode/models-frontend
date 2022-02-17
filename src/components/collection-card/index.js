@@ -95,7 +95,7 @@ const CollectionCard = (props) => {
       </div>
       <div className={styles.gotoLink}>
         <Button className={styles.viewButton} onClick={() => onClickView()}>
-          VIEW FASHION
+          VIEW LOOK
         </Button>
         <img
           src="/images/yellow-neon-arrow.png"
