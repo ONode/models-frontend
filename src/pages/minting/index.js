@@ -3,8 +3,12 @@ import { useSelector } from 'react-redux'
 
 import { FormControl, ClickAwayListener, Popper, Tooltip, InputBase, Fade, Select, MenuItem } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles'
+
 import Input from '@components/Input'
+import Loader from '@components/loader'
+
 import { upload as UploadToPinata } from '../../utils/pinata'
+
 import { getAccount } from '@selectors/user.selectors'
 import ERC20ABI from '@constants/mint_abi.json'
 import styles from './styles.module.scss'
@@ -168,23 +172,36 @@ function Minting(props) {
         ],
       }
 
+      
       const url = await UploadToPinata(metaJson, renderFile, sourceFile)
       console.log('url: ', url)
       if (!url) {
         return
       }
+      
+
+      const gasPriceRes = await fetch('https://gasstation-mainnet.matic.network/')
+      const gasPriceObj = await gasPriceRes.json()
+      // console.log('gasPrice: ', gasPriceObj.fastest * 1000000000)
+      
       const contract = new window.web3.eth.Contract(ERC20ABI, address)
       console.log('this is before mint', address)
       console.log('this is before mint account: ', account)
+
       let response = await contract.methods
         .createChild(url)
-        .send({ from: account })
+        .send({ from: account, gas: '21000', gasPrice: gasPriceObj.fastest * 1000000000})
 
       console.log('===createChild response: ', response)
       setStatus(2)
     } catch (error) {
       console.log('===error: ', error)
-      setStatus(3)
+      if (error && error.code === 4001) {
+        setStatus(4)
+      } else {
+        setStatus(3)
+      }
+      
     }
   }
 
@@ -683,10 +700,11 @@ function Minting(props) {
               </div>
               <button
                 onClick={handleContributeClick}
-                className='text-white font-black text-base font-inter px-4 bg-black rounded-xl max-w-min'
-                style={{ marginTop: 38, paddingTop: 7, paddingBottom: 8, fontSize: 15 }}
+                className='text-white font-black text-base font-inter px-4 bg-black rounded-xl'
+                style={{ marginTop: 38, paddingTop: 7, paddingBottom: 8, fontSize: 15, minWidth: 100 }}
               >
-                Contribute
+                {status !== 1 && 'Contribute'}
+                {status === 1 && <Loader active={true} white className={styles.loader} />}
               </button>
             </div>
           </div>
@@ -694,17 +712,22 @@ function Minting(props) {
         {!isMobile && (
           <button
             onClick={handleContributeClick}
+            disabled={status === 1}
             className='font-black text-white text-base font-inter p-2 px-4 bg-black rounded-xl mt-12 max-w-min'
+            style={{ minWidth: 200, minHeight: 50 }}
+
           >
-            Contribute
+            {status !== 1 && 'Contribute'}
+            {status === 1 && <Loader active={true} white className={styles.loader} />}
           </button>
         )}
 
-        <div>
+        <div className={styles.alertPanel}>
           {status === -1 && <h2 style={{ color: 'red' }}>Please fill all fields</h2>}
-          {status === 1 && <h2 style={{ color: 'white' }}>Processing</h2>}
-          {status === 2 && <h2 style={{ color: 'green' }}>Success</h2>}
-          {status === 3 && <h2 style={{ color: 'red' }}>Failed</h2>}
+          {status === 1 && <h2 style={{ color: 'blue' }}>Processing...</h2>}
+          {status === 2 && <h2 style={{ color: 'green' }}>Successfully Minted!</h2>}
+          {status === 3 && <h2 style={{ color: 'red' }}>Minting Failed</h2>}
+          {status === 4 && <h2 style={{ color: 'red' }}>Minting Rejected</h2>}
         </div>
       </div>
     </div>
