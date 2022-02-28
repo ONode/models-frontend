@@ -10,6 +10,8 @@ import modelActions from '@actions/model.actions'
 import styles from './styles.module.scss'
 import Dropdown from '@components/Dropdown'
 
+import { uploadFile as uploadFileToPinata } from '@utils/pinata'
+
 const QuestionMark = (props) => {
   const { children } = props
 
@@ -105,21 +107,10 @@ const OnChainLookSubmitForm = (props) => {
   const uploadFile = async (file) => {
     try {
       dispatch(modelActions.setIsloading(true))
-      console.log('--------- file: ', file)
-      let url = await api.getPresignedGeneralUrl(file.type, file.name)
-      if (url) {
-        const result = await api.uploadImageToS3(url, file)
-        if (result) {
-          const queryIndex = url.indexOf('?')
-          if (queryIndex >= 0) {
-            url = url.slice(0, queryIndex)
-          }
-          dispatch(modelActions.setIsloading(false))
-          return url
-        }
-      }
+      const url = await uploadFileToPinata(file)
+      console.log('uploaded: ', url)
       dispatch(modelActions.setIsloading(false))
-      return null
+      return url
     } catch (e) {
       dispatch(modelActions.setIsloading(false))
       return null

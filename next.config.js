@@ -11,7 +11,6 @@ const {
   DEFAULT_NETWORK,
   EXCHANGE_API,
   IMGIX_URL,
-  REWARD_CONTRACT_ADDRESSES,
   DEFAULT_WEB3_URL,
   MONA_TOKEN_ADDRESSES,
   DIGITAL_MARKETPLACE_ADDRESSES,
@@ -21,6 +20,16 @@ const {
   NIX_URL
 } = require('config');
 const withImages = require('next-images');
+
+
+const webpack = require('webpack')
+
+const env = {
+  PINATA_API_KEY: process.env.PINATA_API_KEY,
+  PINATA_API_SECRET_KEY: process.env.PINATA_API_SECRET_KEY,
+  INFURA_API_KEY: process.env.INFURA_API_KEY
+};
+
 
 module.exports = withImages({
   publicRuntimeConfig: {
@@ -36,7 +45,6 @@ module.exports = withImages({
     DEFAULT_NETWORK,
     EXCHANGE_API,
     IMGIX_URL,
-    REWARD_CONTRACT_ADDRESSES,
     DEFAULT_WEB3_URL,
     MONA_TOKEN_ADDRESSES,
     DIGITAL_MARKETPLACE_ADDRESSES,
@@ -65,6 +73,8 @@ module.exports = withImages({
         ws: 'empty',
       };
     }
+
+    cfg.plugins.push(new webpack.EnvironmentPlugin(env))
 
     return cfg;
   },
