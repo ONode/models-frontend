@@ -43,6 +43,12 @@ function useWindowDimensions() {
   return windowDimensions
 }
 
+const blockedIDs = [
+  100021,
+  100024,
+  100025
+]
+
 const AvatarLibraries = (props) => {
   const [loading, setLoading] = useState(false)
   const screenWidth = useWindowDimensions().width
@@ -61,7 +67,13 @@ const AvatarLibraries = (props) => {
     )
     
     console.log('avatarElementals: ', result)
-    setAvatarElementals(result.filter(item => parseInt(item.id) > 100014 && parseInt(item.id) != 100021))
+    setAvatarElementals(
+      result.filter(
+        item => 
+        parseInt(item.id) > 100014 && blockedIDs.find(blockedId => blockedId == parseInt(item.id)) == null
+        && item.name != null && item.name.toLowerCase() != 'test'
+      )
+    )
     setLoading(false)
   }
 
