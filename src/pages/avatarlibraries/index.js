@@ -46,7 +46,8 @@ function useWindowDimensions() {
 const blockedIDs = [
   100021,
   100024,
-  100025
+  100025,
+  100026,
 ]
 
 const AvatarLibraries = (props) => {
