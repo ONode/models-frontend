@@ -3,14 +3,20 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import Button from '@components/Button'
-import { EXCLUSIVE_RARITY, COMMON_RARITY, SEMI_RARE_RARITY } from '@constants/global.constants'
-import api from '@services/api/espa/api.service'
-import { getUser } from '@helpers/user.helpers'
-import modelActions from '@actions/model.actions'
-import styles from './styles.module.scss'
 import Dropdown from '@components/Dropdown'
 
+import modelActions from '@actions/model.actions'
+import { openCC0Modal } from '@actions/modals.actions'
+
+import { EXCLUSIVE_RARITY, COMMON_RARITY, SEMI_RARE_RARITY } from '@constants/global.constants'
+
+import api from '@services/api/espa/api.service'
+
+import { getUser } from '@helpers/user.helpers'
+
 import { uploadFile as uploadFileToPinata } from '@utils/pinata'
+
+import styles from './styles.module.scss'
 
 const QuestionMark = (props) => {
   const { children } = props
@@ -198,7 +204,7 @@ const OnChainLookSubmitForm = (props) => {
   const onSend = () => {
     const completed = validateOnChainForm()
     if (!completed) return
-    submitForm()
+    dispatch(openCC0Modal(submitForm));
   }
 
   const onChangeRenderFile = (e, number) => {

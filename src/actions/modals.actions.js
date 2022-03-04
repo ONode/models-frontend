@@ -49,3 +49,6 @@ export const closeSuccessModal = () => (dispatch) => dispatch(closeModal('isShow
 
 export const openConnectMaticModal = (params) => (dispatch) => dispatch(openModal('isShowModalConnectMatic', 'hideScroll', params))
 export const closeConnectMaticModal = () => (dispatch) => dispatch(closeModal('isShowModalConnectMatic', 'addScroll'))
+
+export const openCC0Modal = (params) => (dispatch) => dispatch(openModal('isShowModalCC0', 'hideScroll', params))
+export const closeCC0Modal = () => (dispatch) => dispatch(closeModal('isShowModalCC0', 'addScroll'))

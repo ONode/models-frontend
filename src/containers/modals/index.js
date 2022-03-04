@@ -6,6 +6,8 @@ import ModalSignup from '@containers/modals/modal-sign-up'
 import ModalSuccess from '@containers/modals/modal-gen-success'
 import PreviewMaterial from '@containers/modals/preview-material'
 import ModalConnectMatic from './modal-connect-matic'
+import ModalCC0 from '@containers/modals/modal-cc0'
+
 
 const Modals = () => {
   const modals = useSelector((state) => state.modals.toJS())
@@ -15,7 +17,8 @@ const Modals = () => {
     isShowModalSignup,
     isShowModalSuccess,
     isShowPreviewMaterial,
-    isShowModalConnectMatic
+    isShowModalConnectMatic,
+    isShowModalCC0
   } = modals
 
   return (
@@ -26,6 +29,7 @@ const Modals = () => {
       {isShowPreviewMaterial && <PreviewMaterial />}
       {isShowModalConnectMatic && <ModalConnectMatic />}
       {isShowModalConnectArkane && <ModalConnectArkane/>}
+      {isShowModalCC0 && <ModalCC0 />}
     </>
   )
 }

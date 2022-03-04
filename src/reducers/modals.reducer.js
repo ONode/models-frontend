@@ -11,6 +11,7 @@ const DEFAULT_FIELDS = Map({
   isShowNotificationConnectMetamask: false,
   isShowBuyNow: false,
   isShowPreviewMaterial: false,
+  isShowModalCC0: false,
   params: null
 })
 
