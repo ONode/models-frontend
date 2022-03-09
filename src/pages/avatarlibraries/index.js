@@ -49,6 +49,7 @@ const blockedIDs = [
   100024,
   100025,
   100026,
+  100028,
 ]
 
 const AvatarLibraries = (props) => {
